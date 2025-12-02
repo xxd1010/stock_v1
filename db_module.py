@@ -4,11 +4,7 @@ import queue
 import logging
 from typing import Optional, Any, List, Dict, Tuple
 
-# 设置日志配置
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+# 获取日志记录器，但不配置日志系统 - 由外部统一配置
 logger = logging.getLogger('db_module')
 
 
@@ -93,13 +89,17 @@ class DatabaseConnectionPool:
         """
         关闭连接池中的所有连接
         """
+        closed_count = 0
         while not self.connections.empty():
             try:
                 conn = self.connections.get_nowait()
                 conn.close()
-                logger.info("关闭数据库连接")
+                closed_count += 1
             except (queue.Empty, sqlite3.Error) as e:
                 logger.error(f"关闭连接失败: {str(e)}")
+        
+        if closed_count > 0:
+            logger.info(f"成功关闭 {closed_count} 个数据库连接")
 
 
 class DatabaseManager:

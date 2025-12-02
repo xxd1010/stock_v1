@@ -5,6 +5,7 @@ import pandas as pd
 
 # 导入日志工具模块，用于记录程序运行状态和错误信息
 from log_utils import get_logger, setup_logger
+from db_module import DatabaseManager
 
 # 初始化日志配置
 setup_logger()
@@ -61,7 +62,7 @@ def _load_all_stock_code(stock_code_file_path: str):
         logger.error(f"股票代码文件 {stock_code_file_path} 未找到，使用默认股票代码列表")
 
 
-class BaostockDataFetcher:
+class BaoStockDataFetcher:
     """
     BaoStock数据获取器类
 
@@ -147,29 +148,32 @@ class BaostockDataFetcher:
         while (rs.error_code == '0') & rs.next():
             stock_list.append(rs.get_row_data())
 
-        # 记录获取结果
+        # 记录获取结果（只在函数内部记录一次）
         logger.info(f"获取到 {len(stock_list)} 只股票信息")
 
         return stock_list
 
+    # 在baostock_data_fecher.py的get_stock_data方法中
+    # 确保只记录一次日志
+    
     def get_stock_data(self, stock_code: str, start_date: str, end_date: str,
                        frequency: str = "d"):
         """
         获取指定股票的历史数据
-
+    
         Args:
             stock_code: 股票代码，如"SH.600000"
             start_date: 开始日期，格式如"2020-01-01"
             end_date: 结束日期，格式如"2020-12-31"
             frequency: 数据频率，默认为"d"（日线），可选"w"（周线）、"m"（月线）
-
+    
         Returns:
             list: 包含股票历史数据的列表，每个元素是一个交易日的数据
         """
         # 记录开始获取股票数据
         logger.info(
             f"开始获取股票 {stock_code} 从 {start_date} 到 {end_date} 的历史数据")
-
+    
         # 查询股票历史数据
         rs = bs.query_history_k_data_plus(
             code=stock_code,
@@ -178,18 +182,17 @@ class BaostockDataFetcher:
             frequency=frequency,
             fields="date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,isST"
         )
-
+    
         # 将股票数据存储到列表中
         stock_data = []
         while (rs.error_code == '0') & rs.next():
             stock_data.append(rs.get_row_data())
-
-        # 记录获取结果
-        logger.info(
-            f"获取到股票 {stock_code} 的 {len(stock_data)} 条历史数据")
+        
+        # 只记录一次获取结果
+        data_count = len(stock_data)
+        logger.info(f"获取到股票 {stock_code} 的 {data_count} 条历史数据")
         
         data = pd.DataFrame(stock_data, columns=rs.fields)
-
         return data
 
     def save_stock_data_to_db(self, stock_data: pd.DataFrame, stock_code: str):
@@ -200,7 +203,7 @@ class BaostockDataFetcher:
             stock_data: 股票历史数据DataFrame
             stock_code: 股票代码
         """
-        from db_module import DatabaseManager
+
         
         # 确保数据库路径存在
         import os
@@ -309,28 +312,3 @@ class BaostockDataFetcher:
             pass
 
 
-if __name__ == "__main__":
-    # 创建实例并运行
-    fetcher = BaostockDataFetcher(config_path="config.json")
-    stock_list = fetcher.get_stock_list()
-    logger.info(f"获取到 {len(stock_list)} 只股票信息")
-    logger.info(f"前五只股票为：{stock_list[:5]}")
-    # 定义股票代码变量
-    stock_code = "sz.300662"
-    data = fetcher.get_stock_data(stock_code=stock_code,
-                            start_date='2025-11-01',
-                            end_date='2025-11-30')
-    logger.info(f"获取到股票 {stock_code} 的 {len(data)} 条历史数据")
-    
-    # 保存股票数据到数据库
-    fetcher.save_stock_data_to_db(data, stock_code)
-    
-    # for _ in stock_list: 
-    #     fetcher.get_stock_data(stock_code=i[0],
-    #                            start_date='2020-01-01',
-    #                            end_date='2020-12-31')
-    #     fetcher.save_stock_data_to_db(stock_data=fetcher.get_stock_data(stock_code=i[0],
-    #                                                                     start_date='2020-01-01',
-    #     ))
-    # 不要手动调用__del__方法，让Python解释器自动处理
-    logger.info("已退出程序")
