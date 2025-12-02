@@ -4,8 +4,10 @@ import json
 import pandas as pd
 
 # 导入日志工具模块，用于记录程序运行状态和错误信息
-from log_utils import get_logger
+from log_utils import get_logger, setup_logger
 
+# 初始化日志配置
+setup_logger()
 logger = get_logger("baostock_data_fetcher")
 
 def _load_config(config_path: str) -> dict:
@@ -190,18 +192,107 @@ class BaostockDataFetcher:
 
         return data
 
-    def save_stock_data_to_db(self, stock_data: list, stock_code: str):
+    def save_stock_data_to_db(self, stock_data: pd.DataFrame, stock_code: str):
         """
         将股票数据保存到数据库
 
         Args:
-            stock_data: 股票历史数据列表
+            stock_data: 股票历史数据DataFrame
             stock_code: 股票代码
         """
-        # 这里可以添加将数据保存到数据库的逻辑
-        # 例如使用SQLite、MySQL等数据库
-        logger.info(f"准备将股票 {stock_code} 的数据保存到数据库")
-        # TODO: 实现数据库保存逻辑
+        from db_module import DatabaseManager
+        
+        # 确保数据库路径存在
+        import os
+        db_dir = os.path.dirname(self.stock_data_db_path)
+        if db_dir and not os.path.exists(db_dir):
+            os.makedirs(db_dir, exist_ok=True)
+        
+        logger.info(f"准备将股票 {stock_code} 的数据保存到数据库: {self.stock_data_db_path}")
+        
+        try:
+            # 创建数据库管理器实例
+            db_manager = DatabaseManager(self.stock_data_db_path)
+            
+            # 创建股票数据表（如果不存在）
+            stock_table_columns = {
+                "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
+                "code": "TEXT NOT NULL",
+                "date": "TEXT NOT NULL",
+                "open": "REAL",
+                "high": "REAL",
+                "low": "REAL",
+                "close": "REAL",
+                "preclose": "REAL",
+                "volume": "INTEGER",
+                "amount": "REAL",
+                "adjustflag": "INTEGER",
+                "turn": "REAL",
+                "tradestatus": "INTEGER",
+                "pctChg": "REAL",
+                "isST": "INTEGER"
+            }
+            
+            # 使用原始SQL语句创建表，包含UNIQUE约束
+            create_table_sql = """
+            CREATE TABLE IF NOT EXISTS stock_data (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                code TEXT NOT NULL,
+                date TEXT NOT NULL,
+                open REAL,
+                high REAL,
+                low REAL,
+                close REAL,
+                preclose REAL,
+                volume INTEGER,
+                amount REAL,
+                adjustflag INTEGER,
+                turn REAL,
+                tradestatus INTEGER,
+                pctChg REAL,
+                isST INTEGER,
+                UNIQUE(code, date)
+            )
+            """
+            
+            cursor = db_manager.execute(create_table_sql)
+            if cursor:
+                logger.info("创建股票数据表成功")
+            
+            # 将DataFrame转换为字典列表，准备插入数据库
+            stock_data_dict = stock_data.to_dict(orient='records')
+            
+            # 批量插入数据
+            insert_count = 0
+            for data in stock_data_dict:
+                # 准备插入数据
+                insert_data = {
+                    "code": stock_code,
+                    "date": data.get("date", ""),
+                    "open": float(data.get("open", 0)),
+                    "high": float(data.get("high", 0)),
+                    "low": float(data.get("low", 0)),
+                    "close": float(data.get("close", 0)),
+                    "preclose": float(data.get("preclose", 0)),
+                    "volume": int(data.get("volume", 0)),
+                    "amount": float(data.get("amount", 0)),
+                    "adjustflag": int(data.get("adjustflag", 0)),
+                    "turn": float(data.get("turn", 0)),
+                    "tradestatus": int(data.get("tradestatus", 0)),
+                    "pctChg": float(data.get("pctChg", 0)),
+                    "isST": int(data.get("isST", 0))
+                }
+                
+                # 插入数据
+                if db_manager.insert("stock_data", insert_data):
+                    insert_count += 1
+            
+            logger.info(f"成功将股票 {stock_code} 的 {insert_count} 条数据保存到数据库")
+            
+            # 关闭数据库管理器
+            db_manager.close()
+        except Exception as e:
+            logger.error(f"保存股票 {stock_code} 数据到数据库失败: {str(e)}")
 
     def __del__(self):
         """
@@ -209,9 +300,13 @@ class BaostockDataFetcher:
 
         用于登出BaoStock API，释放资源
         """
-        # 登出BaoStock API
-        bs.logout()
-        logger.info("已登出BaoStock API")
+        try:
+            # 登出BaoStock API，添加错误处理以防止Python关闭时的ImportError
+            bs.logout()
+            logger.info("已登出BaoStock API")
+        except Exception as e:
+            # 忽略登出时的错误，特别是在Python解释器关闭时
+            pass
 
 
 if __name__ == "__main__":
@@ -220,10 +315,16 @@ if __name__ == "__main__":
     stock_list = fetcher.get_stock_list()
     logger.info(f"获取到 {len(stock_list)} 只股票信息")
     logger.info(f"前五只股票为：{stock_list[:5]}")
-    data = fetcher.get_stock_data(stock_code="sz.300662",
+    # 定义股票代码变量
+    stock_code = "sz.300662"
+    data = fetcher.get_stock_data(stock_code=stock_code,
                             start_date='2025-11-01',
                             end_date='2025-11-30')
     logger.info(f"获取到股票 {stock_code} 的 {len(data)} 条历史数据")
+    
+    # 保存股票数据到数据库
+    fetcher.save_stock_data_to_db(data, stock_code)
+    
     # for _ in stock_list: 
     #     fetcher.get_stock_data(stock_code=i[0],
     #                            start_date='2020-01-01',
@@ -231,5 +332,5 @@ if __name__ == "__main__":
     #     fetcher.save_stock_data_to_db(stock_data=fetcher.get_stock_data(stock_code=i[0],
     #                                                                     start_date='2020-01-01',
     #     ))
-    fetcher.__del__()
+    # 不要手动调用__del__方法，让Python解释器自动处理
     logger.info("已退出程序")

@@ -3,5 +3,9 @@
     "stock_file_path": "D:\\stock_data\\",
     "stock_code_file_path": "D:\\stock_data\\stock_code.csv",
     "stock_data_db_path": "D:\\stock_data\\stock_data.db"
+  },
+  "log": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
   }
 }
