@@ -109,7 +109,7 @@ class DatabaseManager:
     提供CRUD操作、事务处理等功能
     """
     
-    def __init__(self, db_path: str, max_connections: int = 5):
+    def __init__(self, db_path: str, max_connections: int = 1):
         """
         初始化数据库管理器
         
@@ -270,12 +270,32 @@ class DatabaseManager:
         Returns:
             Dict[str, Any]: 查询结果字典，失败返回None
         """
-        cursor = self.execute(sql, params)
-        if cursor:
+        conn: Optional[sqlite3.Connection] = None
+        cursor: Optional[sqlite3.Cursor] = None
+
+        try:
+            conn = self.pool.get_connection()
+            if not conn:
+                logger.error("无法获取数据库连接用于查询单条记录")
+                return None
+
+            cursor = conn.cursor()
+            cursor.execute(sql, params)
             row = cursor.fetchone()
             if row:
                 return dict(row)
-        return None
+            return None
+        except sqlite3.Error as e:
+            logger.error(f"查询单条记录失败: {sql}, 参数: {params}, 错误: {str(e)}")
+            if conn:
+                conn.rollback()
+            return None
+        finally:
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.commit()
+                self.pool.release_connection(conn)
     
     def fetch_all(self, sql: str, params: Tuple[Any, ...] = ()) -> List[Dict[str, Any]]:
         """
@@ -288,11 +308,30 @@ class DatabaseManager:
         Returns:
             List[Dict[str, Any]]: 查询结果列表，每个元素是字典
         """
-        cursor = self.execute(sql, params)
-        if cursor:
+        conn: Optional[sqlite3.Connection] = None
+        cursor: Optional[sqlite3.Cursor] = None
+
+        try:
+            conn = self.pool.get_connection()
+            if not conn:
+                logger.error("无法获取数据库连接用于查询多条记录")
+                return []
+
+            cursor = conn.cursor()
+            cursor.execute(sql, params)
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
-        return []
+        except sqlite3.Error as e:
+            logger.error(f"查询多条记录失败: {sql}, 参数: {params}, 错误: {str(e)}")
+            if conn:
+                conn.rollback()
+            return []
+        finally:
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.commit()
+                self.pool.release_connection(conn)
     
     def create_table(self, table_name: str, columns: Dict[str, str]) -> bool:
         """
