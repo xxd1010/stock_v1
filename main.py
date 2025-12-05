@@ -209,43 +209,32 @@ class StockAnalyzer:
 
 def parse_arguments():
     """
-    解析命令行参数
+    从配置文件读取参数
     
     Returns:
         argparse.Namespace: 解析后的参数
     """
-    parser = argparse.ArgumentParser(description="股票分析程序")
+    from argparse import Namespace
     
-    # 配置文件参数
-    parser.add_argument("-c", "--config", type=str, help="配置文件路径")
+    # 从配置中读取参数
+    config = get_config()
     
-    # 子命令
-    subparsers = parser.add_subparsers(dest="command", help="可用命令")
+    # 创建参数命名空间
+    args = Namespace()
     
-    # 获取股票数据命令
-    fetch_parser = subparsers.add_parser("fetch", help="获取股票数据")
-    fetch_parser.add_argument("stock_code", type=str, help="股票代码")
-    fetch_parser.add_argument("start_date", type=str, help="开始日期 (YYYY-MM-DD)")
-    fetch_parser.add_argument("end_date", type=str, help="结束日期 (YYYY-MM-DD)")
-    fetch_parser.add_argument("-f", "--frequency", type=str, default="d", 
-                            choices=["d", "w", "m"], help="数据频率 (d: 日线, w: 周线, m: 月线)")
+    # 操作类型
+    args.operation = config.get("operation", "fetch")
     
-    # 分析股票命令
-    analyze_parser = subparsers.add_parser("analyze", help="分析股票")
-    analyze_parser.add_argument("stock_code", type=str, help="股票代码")
-    analyze_parser.add_argument("start_date", type=str, help="开始日期 (YYYY-MM-DD)")
-    analyze_parser.add_argument("end_date", type=str, help="结束日期 (YYYY-MM-DD)")
+    # 股票相关参数
+    args.stock_code = config.get("stock_code")
+    args.start_date = config.get("start_date")
+    args.end_date = config.get("end_date")
+    args.frequency = config.get("frequency", "d")
+    args.list = config.get("stock_list_path")
     
-    # 批量分析命令
-    batch_parser = subparsers.add_parser("batch", help="批量分析股票")
-    batch_parser.add_argument("start_date", type=str, help="开始日期 (YYYY-MM-DD)")
-    batch_parser.add_argument("end_date", type=str, help="结束日期 (YYYY-MM-DD)")
-    batch_parser.add_argument("-l", "--list", type=str, help="股票代码列表文件路径")
+    logger.info(f"从配置文件读取参数: 操作={args.operation}, 股票代码={args.stock_code}, 日期范围={args.start_date} 至 {args.end_date}")
     
-    # 获取所有股票代码命令
-    subparsers.add_parser("get_codes", help="获取所有股票代码")
-    
-    return parser.parse_args()
+    return args
 
 
 def main():
@@ -254,23 +243,36 @@ def main():
     """
     logger.info("股票分析程序启动")
     
-    # 解析命令行参数
+    # 加载配置文件
+    load_config("config.json")
+    
+    # 解析参数（从配置文件读取）
     args = parse_arguments()
     
     # 创建股票分析器实例
-    analyzer = StockAnalyzer(args.config)
+    analyzer = StockAnalyzer()
     
-    # 根据命令执行相应操作
-    if args.command == "fetch":
+    # 根据配置文件中的操作类型执行相应操作
+    if args.operation == "fetch":
         # 获取股票数据
+        if not all([args.stock_code, args.start_date, args.end_date]):
+            logger.error("fetch 操作需要在配置文件中提供 stock_code, start_date, end_date 参数")
+            return
         analyzer.fetch_stock_data(args.stock_code, args.start_date, args.end_date, args.frequency)
     
-    elif args.command == "analyze":
+    elif args.operation == "analyze":
         # 分析股票
+        if not all([args.stock_code, args.start_date, args.end_date]):
+            logger.error("analyze 操作需要在配置文件中提供 stock_code, start_date, end_date 参数")
+            return
         analyzer.analyze_stock(args.stock_code, args.start_date, args.end_date)
     
-    elif args.command == "batch":
+    elif args.operation == "batch":
         # 批量分析股票
+        if not all([args.start_date, args.end_date]):
+            logger.error("batch 操作需要在配置文件中提供 start_date, end_date 参数")
+            return
+        
         if args.list:
             # 从文件读取股票代码列表
             with open(args.list, 'r', encoding='utf-8') as f:
@@ -282,7 +284,7 @@ def main():
         
         analyzer.batch_analyze(stock_codes, args.start_date, args.end_date)
     
-    elif args.command == "get_codes":
+    elif args.operation == "get-codes":
         # 获取所有股票代码
         stock_list = analyzer.fetch_all_stock_codes()
         logger.info(f"获取到 {len(stock_list)} 只股票代码")
@@ -290,8 +292,7 @@ def main():
             print(f"{stock[0]} - {stock[1]}")
     
     else:
-        # 没有指定命令，显示帮助信息
-        print("请指定命令，使用 --help 查看帮助")
+        logger.error(f"不支持的操作类型: {args.operation}")
     
     logger.info("股票分析程序结束")
 

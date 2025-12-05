@@ -2,7 +2,12 @@
   "config": {
     "stock_file_path": "D:\\stock_data\\",
     "stock_code_file_path": "D:\\stock_data\\stock_code.csv",
-    "stock_data_db_path": "D:\\stock_data\\stock_data.db"
+    "stock_data_db_path": "D:\\stock_data\\stock_data.db",
+    "stock_code": "sz.301662",
+    "start_date": "2025-01-01",
+    "end_date": "2025-11-13",
+    "frequency": "d",
+    "operation": "analyze"
   },
   "log": {
     "level": "INFO",

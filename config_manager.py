@@ -135,6 +135,10 @@ class ConfigManager:
                 logger.error(f"不支持的配置文件格式: {ext}")
                 return False
             
+            # 如果配置文件包含'config'节点，使用该节点内容，否则使用整个配置
+            if 'config' in file_config:
+                file_config = file_config['config']
+            
             # 合并配置（文件配置覆盖默认配置）
             self._merge_config(self.config, file_config)
             logger.info(f"配置文件加载成功: {config_path}")

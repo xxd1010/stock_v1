@@ -26,9 +26,13 @@ def _load_config(config_path: str) -> dict:
     try:
         # 尝试以UTF-8编码打开配置文件
         with open(config_path, 'r', encoding='utf-8') as f:
-            # 加载JSON数据并获取'config'节点
+            # 加载JSON数据
             config_data = json.load(f)
-            return config_data.get('config', {})
+            # 如果配置文件包含'config'节点，使用该节点内容，否则使用整个配置
+            if 'config' in config_data:
+                return config_data['config']
+            else:
+                return config_data
     except FileNotFoundError:
         # 配置文件不存在时的处理
         logger.error(f"配置文件 {config_path} 未找到，使用默认配置")
@@ -269,9 +273,14 @@ class BaoStockDataFetcher:
             insert_count = 0
             for data in stock_data_dict:
                 # 准备插入数据
+                date_value = data.get("date", "")
+                # 将Timestamp类型转换为字符串
+                if hasattr(date_value, "strftime"):
+                    date_value = date_value.strftime("%Y-%m-%d")
+                
                 insert_data = {
                     "code": stock_code,
-                    "date": data.get("date", ""),
+                    "date": date_value,
                     "open": float(data.get("open", 0)),
                     "high": float(data.get("high", 0)),
                     "low": float(data.get("low", 0)),

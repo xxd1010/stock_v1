@@ -1,0 +1,9 @@
+baostock
+pandas
+numpy
+matplotlib
+plotly
+reportlab
+jinja2
+PyQt5
+pyyaml
