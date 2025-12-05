@@ -1,0 +1,19 @@
+{
+  "version_id": "test_strategy_test_version_20251206_014047",
+  "name": "test_version",
+  "description": "测试版本",
+  "strategy_name": "test_strategy",
+  "params": {
+    "ma_short": 10,
+    "ma_long": 20,
+    "transaction_cost": 0.0003
+  },
+  "performance": {
+    "total_return": 15.5,
+    "annual_return": 5.2,
+    "sharpe_ratio": 1.2,
+    "max_drawdown": -8.3
+  },
+  "created_time": "2025-12-06T01:40:47.860709",
+  "created_by": "system"
+}

@@ -34,6 +34,19 @@ class ConfigManager:
             }
         },
         
+        # 数据源管理配置
+        "data_sources": {
+            "baostock": {
+                "type": "baostock",
+                "default": True
+            },
+            "csv": {
+                "type": "csv",
+                "data_dir": "./data",
+                "default": False
+            }
+        },
+        
         # 数据预处理配置
         "data_preprocessor": {
             "missing_value_method": "ffill",
