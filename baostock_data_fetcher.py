@@ -306,6 +306,62 @@ class BaoStockDataFetcher:
         except Exception as e:
             logger.error(f"保存股票 {stock_code} 数据到数据库失败: {str(e)}")
 
+    def get_stock_data_from_db(self, stock_code: str, start_date: str, end_date: str):
+        """
+        从数据库获取股票数据
+
+        Args:
+            stock_code: 股票代码
+            start_date: 开始日期
+            end_date: 结束日期
+
+        Returns:
+            pd.DataFrame: 股票数据
+        """
+        logger.info(f"从数据库获取股票 {stock_code} 的数据，时间范围: {start_date} 至 {end_date}")
+        
+        try:
+            # 创建数据库管理器实例
+            db_manager = DatabaseManager(self.stock_data_db_path)
+            
+            # 查询SQL语句
+            sql = """
+                SELECT code, date, open, high, low, close, preclose, volume, amount, adjustflag, turn, tradestatus, pctChg, isST
+                FROM stock_data
+                WHERE code = ? AND date BETWEEN ? AND ?
+                ORDER BY date
+            """
+            
+            # 执行查询
+            results = db_manager.fetch_all(sql, (stock_code, start_date, end_date))
+            
+            # 关闭数据库管理器
+            db_manager.close()
+            
+            if not results:
+                logger.warning(f"未从数据库获取到股票 {stock_code} 的数据")
+                return pd.DataFrame()
+            
+            # 将查询结果转换为DataFrame
+            df = pd.DataFrame(results)
+            
+            # 将字符串类型的日期转换为datetime类型
+            df['date'] = pd.to_datetime(df['date'])
+            
+            # 确保数值列是正确的数据类型
+            numeric_columns = ['open', 'high', 'low', 'close', 'preclose', 'volume', 'amount', 'adjustflag', 'turn', 'tradestatus', 'pctChg', 'isST']
+            for col in numeric_columns:
+                if col in df.columns:
+                    df[col] = pd.to_numeric(df[col], errors='coerce')
+            
+            logger.info(f"从数据库获取到股票 {stock_code} 的 {len(df)} 条数据")
+            return df
+        except Exception as e:
+            logger.error(f"从数据库获取股票 {stock_code} 数据失败: {str(e)}")
+            import traceback
+            logger.error(traceback.format_exc())
+            return pd.DataFrame()
+
     def __del__(self):
         """
         析构函数，在对象销毁时调用
