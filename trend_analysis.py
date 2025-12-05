@@ -149,13 +149,12 @@ class TrendAnalysis:
         df = self._identify_trend_by_ma(df)
         df = self._identify_trend_by_macd(df)
         
-        # 重命名列
-        df.rename(columns={'Trend': 'Trend_MA'}, inplace=True)
-        df.rename(columns={'Trend': 'Trend_MACD'}, inplace=True)
+        # 保存MA趋势结果
+        df['Trend_MA'] = df['Trend']
         
         # 再次使用MACD识别趋势
         df = self._identify_trend_by_macd(df)
-        df.rename(columns={'Trend': 'Trend_MACD'}, inplace=True)
+        df['Trend_MACD'] = df['Trend']
         
         # 综合判断趋势
         def get_combined_trend(row):

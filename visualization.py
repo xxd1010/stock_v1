@@ -39,7 +39,14 @@ class Visualization:
         # 可视化配置
         self.default_chart_type = self.config.get("visualization.default_chart_type", "candlestick")
         self.show_grid = self.config.get("visualization.show_grid", True)
-        self.theme = self.config.get("visualization.theme", "light")
+        # 主题映射，将配置中的主题名称转换为Plotly支持的模板名称
+        theme_mapping = {
+            "light": "plotly_white",
+            "dark": "plotly_dark",
+            "default": "plotly"
+        }
+        theme = self.config.get("visualization.theme", "light")
+        self.theme = theme_mapping.get(theme, "plotly_white")
         self.plotly_api_key = self.config.get("visualization.plotly_api_key", "")
         
         # 设置中文字体支持
@@ -87,8 +94,15 @@ class Visualization:
         if save_path:
             # 确保目录存在
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            fig.write_image(save_path)
-            logger.info(f"K线图已保存到: {save_path}")
+            try:
+                fig.write_image(save_path)
+                logger.info(f"K线图已保存到: {save_path}")
+            except ValueError as e:
+                if "requires the Kaleido package" in str(e):
+                    logger.warning(f"Kaleido包未安装，跳过保存K线图: {save_path}")
+                else:
+                    logger.error(f"保存K线图失败: {str(e)}")
+                save_path = ""
         
         # 显示图表
         if show:
@@ -150,8 +164,15 @@ class Visualization:
         # 保存图表
         if save_path:
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            fig.write_image(save_path)
-            logger.info(f"带均线K线图已保存到: {save_path}")
+            try:
+                fig.write_image(save_path)
+                logger.info(f"带均线K线图已保存到: {save_path}")
+            except ValueError as e:
+                if "requires the Kaleido package" in str(e):
+                    logger.warning(f"Kaleido包未安装，跳过保存带均线K线图: {save_path}")
+                else:
+                    logger.error(f"保存带均线K线图失败: {str(e)}")
+                save_path = ""
         
         # 显示图表
         if show:
@@ -229,8 +250,15 @@ class Visualization:
         # 保存图表
         if save_path:
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            fig.write_image(save_path)
-            logger.info(f"MACD指标图已保存到: {save_path}")
+            try:
+                fig.write_image(save_path)
+                logger.info(f"MACD指标图已保存到: {save_path}")
+            except ValueError as e:
+                if "requires the Kaleido package" in str(e):
+                    logger.warning(f"Kaleido包未安装，跳过保存MACD指标图: {save_path}")
+                else:
+                    logger.error(f"保存MACD指标图失败: {str(e)}")
+                save_path = ""
         
         # 显示图表
         if show:
@@ -300,8 +328,15 @@ class Visualization:
         # 保存图表
         if save_path:
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            fig.write_image(save_path)
-            logger.info(f"RSI指标图已保存到: {save_path}")
+            try:
+                fig.write_image(save_path)
+                logger.info(f"RSI指标图已保存到: {save_path}")
+            except ValueError as e:
+                if "requires the Kaleido package" in str(e):
+                    logger.warning(f"Kaleido包未安装，跳过保存RSI指标图: {save_path}")
+                else:
+                    logger.error(f"保存RSI指标图失败: {str(e)}")
+                save_path = ""
         
         # 显示图表
         if show:
@@ -367,8 +402,15 @@ class Visualization:
         # 保存图表
         if save_path:
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            fig.write_image(save_path)
-            logger.info(f"波动率图表已保存到: {save_path}")
+            try:
+                fig.write_image(save_path)
+                logger.info(f"波动率图表已保存到: {save_path}")
+            except ValueError as e:
+                if "requires the Kaleido package" in str(e):
+                    logger.warning(f"Kaleido包未安装，跳过保存波动率图表: {save_path}")
+                else:
+                    logger.error(f"保存波动率图表失败: {str(e)}")
+                save_path = ""
         
         # 显示图表
         if show:
@@ -447,8 +489,15 @@ class Visualization:
         # 保存图表
         if save_path:
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            fig.write_image(save_path)
-            logger.info(f"布林带图表已保存到: {save_path}")
+            try:
+                fig.write_image(save_path)
+                logger.info(f"布林带图表已保存到: {save_path}")
+            except ValueError as e:
+                if "requires the Kaleido package" in str(e):
+                    logger.warning(f"Kaleido包未安装，跳过保存布林带图表: {save_path}")
+                else:
+                    logger.error(f"保存布林带图表失败: {str(e)}")
+                save_path = ""
         
         # 显示图表
         if show:
@@ -523,8 +572,15 @@ class Visualization:
         # 保存图表
         if save_path:
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            fig.write_image(save_path)
-            logger.info(f"成交量图表已保存到: {save_path}")
+            try:
+                fig.write_image(save_path)
+                logger.info(f"成交量图表已保存到: {save_path}")
+            except ValueError as e:
+                if "requires the Kaleido package" in str(e):
+                    logger.warning(f"Kaleido包未安装，跳过保存成交量图表: {save_path}")
+                else:
+                    logger.error(f"保存成交量图表失败: {str(e)}")
+                save_path = ""
         
         # 显示图表
         if show:
@@ -629,8 +685,15 @@ class Visualization:
         # 保存图表
         if save_path:
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            fig.write_image(save_path)
-            logger.info(f"趋势分析图表已保存到: {save_path}")
+            try:
+                fig.write_image(save_path)
+                logger.info(f"趋势分析图表已保存到: {save_path}")
+            except ValueError as e:
+                if "requires the Kaleido package" in str(e):
+                    logger.warning(f"Kaleido包未安装，跳过保存趋势分析图表: {save_path}")
+                else:
+                    logger.error(f"保存趋势分析图表失败: {str(e)}")
+                save_path = ""
         
         # 显示图表
         if show:
