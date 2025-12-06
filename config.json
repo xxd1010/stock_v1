@@ -1,17 +1,16 @@
 {
-  "config": {
-    "stock_file_path": "D:/stock_data/",
-    "stock_code_file_path": "D:/stock_data/stock_code.csv",
-    "stock_data_db_path": "D:/stock_data/stock_data.db",
-    "stock_code": "sz.301662",
+  "operation":"backtest",
+  "sample_data": {
+    "start_date": "2023-01-01",
+    "end_date": "2025-12-31",
+    "symbol": "sh.301662"
+  },
+  "backtest": {
+    "initial_cash": 1399962,
     "start_date": "2023-01-01",
     "end_date": "2025-12-31",
     "frequency": "d",
-    "operation": "optimize",
-    "operation_desc": "操作类型：fetch（获取单只股票数据）、batch-fetch（批量获取股票数据）、get-codes（获取股票代码列表）、analyze（分析单只股票）、batch-analyze（批量分析股票）"
-  },
-  "log": {
-    "level": "INFO",
-    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    "transaction_cost": 0.0009,
+    "slippage": 0.0001
   }
 }

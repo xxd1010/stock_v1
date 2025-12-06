@@ -96,20 +96,55 @@ class BacktestEngine:
         
         Args:
             params: 回测参数
+        
+        Raises:
+            ValueError: 当股票代码或日期范围与配置不一致时抛出
         """
-        self.logger.info(f"设置回测参数: {params}")
+        self.logger.info(f"设置回测参数前的当前值: {self.params}")
+        self.logger.info(f"设置的新参数: {params}")
+        
+        # 记录参数来源和最终值
+        for key, value in params.items():
+            self.logger.info(f"参数 {key}: 原值={self.params.get(key)}, 新值={value}, 来源=传入参数")
+        
+        # 更新参数
         self.params.update(params)
+        
+        # 从配置管理器获取配置，验证关键参数一致性
+        from config_manager import get_config
+        config = get_config()
+        
+        # 验证日期范围一致性（如果配置中有明确日期）
+        config_start_date = config.get("backtest.start_date")
+        config_end_date = config.get("backtest.end_date")
+        
+        if "start_date" in params and config_start_date:
+            if params["start_date"] != config_start_date:
+                error_msg = f"开始日期不一致 - 配置: {config_start_date}, 实际: {params['start_date']}"
+                self.logger.error(error_msg)
+                raise ValueError(error_msg)
+        
+        if "end_date" in params and config_end_date:
+            if params["end_date"] != config_end_date:
+                error_msg = f"结束日期不一致 - 配置: {config_end_date}, 实际: {params['end_date']}"
+                self.logger.error(error_msg)
+                raise ValueError(error_msg)
         
         # 更新撮合引擎参数
         self.matching_engine.set_params({
             "transaction_cost": params.get("transaction_cost", self.params["transaction_cost"]),
             "slippage": params.get("slippage", self.params["slippage"])
         })
+        self.logger.info(f"更新撮合引擎参数 - 交易成本: {self.params['transaction_cost']}, 滑点: {self.params['slippage']}")
         
         # 更新初始资金
         if "initial_cash" in params:
+            old_cash = self.account["cash"]
             self.account["cash"] = params["initial_cash"]
             self.account["total_equity"] = params["initial_cash"]
+            self.logger.info(f"更新初始资金 - 原值: {old_cash}, 新值: {params['initial_cash']}")
+        
+        self.logger.info(f"参数设置完成，最终回测参数: {self.params}")
     
     def load_data(self, data):
         """
@@ -117,8 +152,11 @@ class BacktestEngine:
         
         Args:
             data: 回测数据，可以是DataFrame或数据文件路径
+            
+        Raises:
+            ValueError: 当配置参数与实际数据不一致时抛出
         """
-        self.logger.info(f"加载回测数据")
+        self.logger.info(f"开始加载回测数据")
         
         if isinstance(data, pd.DataFrame):
             self.data = data
@@ -132,28 +170,54 @@ class BacktestEngine:
                 raise ValueError(f"不支持的数据格式: {data}")
         
         # 确保数据按日期排序
-        if 'date' in self.data.columns:
-            self.data['date'] = pd.to_datetime(self.data['date'])
-            self.data = self.data.sort_values('date')
-        elif 'datetime' in self.data.columns:
-            self.data['datetime'] = pd.to_datetime(self.data['datetime'])
-            self.data = self.data.sort_values('datetime')
+        date_col = 'date' if 'date' in self.data.columns else 'datetime' if 'datetime' in self.data.columns else None
+        if date_col is None:
+            raise ValueError("数据中缺少日期列(date或datetime)")
+        
+        self.data[date_col] = pd.to_datetime(self.data[date_col])
+        self.data = self.data.sort_values(date_col)
+        
+        # 提取数据的股票代码（使用第一个股票代码）
+        stock_code = self.data.get('code', self.data.get('symbol', None))
+        if stock_code is not None:
+            self.data_stock_code = stock_code.iloc[0] if isinstance(stock_code, pd.Series) else stock_code
+            self.logger.info(f"数据中的股票代码: {self.data_stock_code}")
+        
+        # 提取数据的实际日期范围
+        self.data_start_date = self.data[date_col].min().strftime('%Y-%m-%d')
+        self.data_end_date = self.data[date_col].max().strftime('%Y-%m-%d')
+        self.logger.info(f"数据的实际日期范围: {self.data_start_date} 至 {self.data_end_date}")
         
         # 设置日期索引
-        if 'date' in self.data.columns:
-            self.data.set_index('date', inplace=True)
-        elif 'datetime' in self.data.columns:
-            self.data.set_index('datetime', inplace=True)
+        self.data.set_index(date_col, inplace=True)
         
         # 过滤日期范围
         if self.params["start_date"] and self.params["end_date"]:
+            self.logger.info(f"回测引擎配置的日期范围: {self.params['start_date']} 至 {self.params['end_date']}")
+            
+            # 验证回测日期范围是否在数据实际日期范围内
+            if pd.to_datetime(self.params["start_date"]) < pd.to_datetime(self.data_start_date):
+                self.logger.warning(f"回测开始日期 {self.params['start_date']} 早于数据实际开始日期 {self.data_start_date}")
+            if pd.to_datetime(self.params["end_date"]) > pd.to_datetime(self.data_end_date):
+                self.logger.warning(f"回测结束日期 {self.params['end_date']} 晚于数据实际结束日期 {self.data_end_date}")
+            
             self.data = self.data.loc[self.params["start_date"]:self.params["end_date"]]
         
         # 重置索引
         self.data.reset_index(inplace=True)
         
+        # 记录过滤后的实际回测日期范围
+        if not self.data.empty:
+            self.actual_start_date = self.data[date_col].min().strftime('%Y-%m-%d')
+            self.actual_end_date = self.data[date_col].max().strftime('%Y-%m-%d')
+            self.logger.info(f"过滤后的实际回测日期范围: {self.actual_start_date} 至 {self.actual_end_date}")
+        
         self.logger.info(f"回测数据加载完成，共 {len(self.data)} 条记录")
         self.status["total_steps"] = len(self.data)
+        
+        # 验证数据完整性
+        if self.data.empty:
+            raise ValueError("加载的数据为空，请检查数据来源或日期范围")
     
     def fetch_data(self, stock_code: str, start_date: str = None, end_date: str = None, 
                   frequency: str = "d", source_name: str = None):
@@ -166,6 +230,9 @@ class BacktestEngine:
             end_date: 结束日期，默认为回测参数中的结束日期
             frequency: 数据频率
             source_name: 数据源名称
+        
+        Raises:
+            ValueError: 当股票代码与配置不一致时抛出
         """
         self.logger.info(f"从数据源获取回测数据: 股票代码={stock_code}, 开始日期={start_date}, 结束日期={end_date}, 频率={frequency}")
         
@@ -174,6 +241,21 @@ class BacktestEngine:
             start_date = self.params["start_date"]
         if end_date is None:
             end_date = self.params["end_date"]
+        
+        # 从配置管理器获取配置的股票代码，添加参数一致性验证
+        from config_manager import get_config
+        config = get_config()
+        config_stock_code = config.get("sample_data.symbol")
+        
+        # 验证股票代码一致性
+        if config_stock_code and stock_code and config_stock_code != stock_code:
+            error_msg = f"股票代码不一致 - 配置: {config_stock_code}, 实际: {stock_code}"
+            self.logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        # 记录参数来源和最终使用值
+        self.logger.info(f"参数来源 - 股票代码: {'传入参数' if stock_code else '配置文件'}, 开始日期: {'传入参数' if start_date else '配置文件'}, 结束日期: {'传入参数' if end_date else '配置文件'}")
+        self.logger.info(f"最终使用参数 - 股票代码={stock_code}, 开始日期={start_date}, 结束日期={end_date}")
         
         # 从数据源获取数据
         self.data = self.data_source_manager.fetch_stock_data(
@@ -193,6 +275,12 @@ class BacktestEngine:
         if 'date' in self.data.columns:
             self.data['date'] = pd.to_datetime(self.data['date'])
             self.data = self.data.sort_values('date')
+        
+        # 记录数据的实际股票代码和日期范围
+        self.data_stock_code = stock_code
+        self.data_start_date = self.data['date'].min().strftime('%Y-%m-%d')
+        self.data_end_date = self.data['date'].max().strftime('%Y-%m-%d')
+        self.logger.info(f"数据实际信息 - 股票代码: {self.data_stock_code}, 日期范围: {self.data_start_date} 至 {self.data_end_date}")
         
         self.logger.info(f"回测数据获取完成，共 {len(self.data)} 条记录")
         self.status["total_steps"] = len(self.data)
@@ -223,6 +311,9 @@ class BacktestEngine:
     def initialize(self):
         """
         初始化回测
+        
+        Raises:
+            ValueError: 当配置参数与实际数据不一致时抛出
         """
         self.logger.info("初始化回测")
         
@@ -237,6 +328,56 @@ class BacktestEngine:
         # 重置回测状态
         self.reset()
         
+        # 从配置管理器获取配置的股票代码和日期范围，进行参数一致性检查
+        from config_manager import get_config
+        config = get_config()
+        config_stock_code = config.get("sample_data.symbol")
+        config_start_date = config.get("backtest.start_date")
+        config_end_date = config.get("backtest.end_date")
+        
+        # 确保data_stock_code属性存在
+        if not hasattr(self, 'data_stock_code'):
+            # 从数据中提取股票代码
+            stock_code = self.data.get('code', self.data.get('symbol', None))
+            if stock_code is not None:
+                self.data_stock_code = stock_code.iloc[0] if isinstance(stock_code, pd.Series) else stock_code
+            else:
+                self.data_stock_code = None
+        
+        # 确保data_start_date和data_end_date属性存在
+        if not hasattr(self, 'data_start_date') or not hasattr(self, 'data_end_date'):
+            # 从数据中提取日期范围
+            date_col = 'date' if 'date' in self.data.columns else 'datetime' if 'datetime' in self.data.columns else None
+            if date_col is None:
+                raise ValueError("数据中缺少日期列(date或datetime)")
+            
+            self.data_start_date = self.data[date_col].min().strftime('%Y-%m-%d')
+            self.data_end_date = self.data[date_col].max().strftime('%Y-%m-%d')
+        
+        # 验证股票代码一致性
+        if config_stock_code and self.data_stock_code and config_stock_code != self.data_stock_code:
+            error_msg = f"股票代码不一致 - 配置: {config_stock_code}, 实际数据: {self.data_stock_code}"
+            self.logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        # 验证日期范围一致性
+        if config_start_date and self.params["start_date"] and config_start_date != self.params["start_date"]:
+            error_msg = f"开始日期不一致 - 配置: {config_start_date}, 回测参数: {self.params['start_date']}"
+            self.logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        if config_end_date and self.params["end_date"] and config_end_date != self.params["end_date"]:
+            error_msg = f"结束日期不一致 - 配置: {config_end_date}, 回测参数: {self.params['end_date']}"
+            self.logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        # 调用配置管理器的参数一致性校验函数
+        config.validate_param_consistency(
+            actual_stock_code=self.data_stock_code,
+            actual_start_date=self.data_start_date,
+            actual_end_date=self.data_end_date
+        )
+        
         # 初始化策略
         self.strategy.initialize(self.data, self.account)
         
@@ -248,6 +389,19 @@ class BacktestEngine:
         
         # 记录初始账户状态
         self.record_account_state()
+        
+        # 打印回测参数摘要
+        self.logger.info("=== 回测参数摘要 ===")
+        self.logger.info(f"股票代码: {self.data_stock_code}")
+        self.logger.info(f"配置回测日期范围: {config_start_date} 至 {config_end_date}")
+        self.logger.info(f"回测引擎日期范围: {self.params['start_date']} 至 {self.params['end_date']}")
+        self.logger.info(f"数据实际日期范围: {self.data_start_date} 至 {self.data_end_date}")
+        self.logger.info(f"初始资金: {self.params['initial_cash']}")
+        self.logger.info(f"交易成本: {self.params['transaction_cost']}")
+        self.logger.info(f"滑点: {self.params['slippage']}")
+        self.logger.info(f"数据条数: {len(self.data)}")
+        self.logger.info(f"策略名称: {self.strategy.__class__.__name__}")
+        self.logger.info("=== 回测参数摘要结束 ===")
         
         self.status["initialized"] = True
         self.logger.info("回测初始化完成")

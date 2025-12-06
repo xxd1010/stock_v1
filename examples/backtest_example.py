@@ -20,9 +20,10 @@ from performance_analyzer import PerformanceAnalyzer
 from backtest_visualizer import BacktestVisualizer
 from examples.simple_ma_strategy import SimpleMAStrategy
 from log_utils import setup_logger, get_logger
+from config_manager import get_config, load_config
 
 
-def generate_sample_data(start_date="2020-01-01", end_date="2023-12-31", symbol="600000.SH"):
+def generate_sample_data(start_date=None, end_date=None, symbol=None):
     """
     生成示例数据
     
@@ -33,7 +34,21 @@ def generate_sample_data(start_date="2020-01-01", end_date="2023-12-31", symbol=
         
     Returns:
         pd.DataFrame: 示例股票数据
+        
+    参数优先级：函数传入参数 > 配置文件参数 > 硬编码默认值
     """
+    logger = get_logger("generate_sample_data")
+    
+    # 获取配置管理器实例
+    config = get_config()
+    
+    # 应用参数优先级：函数参数 > 配置文件 > 硬编码默认值
+    start_date = start_date or config.get("sample_data.start_date", "2020-01-01")
+    end_date = end_date or config.get("sample_data.end_date", "2023-12-31")
+    symbol = symbol or config.get("sample_data.symbol", "600000.SH")
+    
+    logger.info(f"使用参数生成示例数据: symbol={symbol}, start_date={start_date}, end_date={end_date}")
+    
     # 生成日期范围
     dates = pd.date_range(start=start_date, end=end_date, freq='B')
     
@@ -78,6 +93,10 @@ def main():
     logger = get_logger("backtest_example")
     logger.info("开始运行回测示例")
     
+    # 加载配置文件
+    load_config("config.json")
+    config = get_config()
+    
     # 生成示例数据
     logger.info("生成示例数据")
     sample_data = generate_sample_data()
@@ -95,24 +114,29 @@ def main():
     strategy_params = {
         "ma_short": 10,
         "ma_long": 20,
-        "initial_cash": 1000000,
-        "transaction_cost": 0.0003,
-        "slippage": 0.0001
+        "initial_cash": config.get("backtest.initial_cash", 1000000),
+        "transaction_cost": config.get("backtest.transaction_cost", 0.0003),
+        "slippage": config.get("backtest.slippage", 0.0001)
     }
     strategy.set_strategy_params(strategy_params)
+    logger.info(f"设置策略参数: {strategy_params}")
     
     # 创建回测引擎
     logger.info("创建回测引擎")
     backtester = BacktestEngine()
     
+    # 从配置文件获取回测参数
+    start_date = config.get("backtest.start_date", "2020-01-01")
+    end_date = config.get("backtest.end_date", "2023-12-31")
+    
     # 设置回测参数
     backtester.set_params({
-        "initial_cash": 1000000,
-        "start_date": "2020-01-01",
-        "end_date": "2023-12-31",
-        "frequency": "d",
-        "transaction_cost": 0.0003,
-        "slippage": 0.0001
+        "initial_cash": config.get("backtest.initial_cash", 1000000),
+        "start_date": start_date,
+        "end_date": end_date,
+        "frequency": config.get("backtest.frequency", "d"),
+        "transaction_cost": config.get("backtest.transaction_cost", 0.0003),
+        "slippage": config.get("backtest.slippage", 0.0001)
     })
     
     # 加载数据
@@ -160,30 +184,21 @@ def main():
     logger.info("创建可视化器")
     visualizer = BacktestVisualizer()
     
+    # 从数据中提取实际股票信息，而非硬编码
+    actual_stock_code = sample_data['code'].iloc[0]
+    actual_start_date = sample_data['date'].min().strftime('%Y-%m-%d')
+    actual_end_date = sample_data['date'].max().strftime('%Y-%m-%d')
+    
     # 准备股票信息
     stock_info = {
-        "symbol": "600000.SH",
-        "name": "浦发银行",
-        "start_date": "2020-01-01",
-        "end_date": "2023-12-31",
-        "frequency": "d"  # 日线数据
+        "symbol": actual_stock_code,
+        "name": actual_stock_code,  # 简化处理，实际应用中可以从数据源获取股票名称
+        "start_date": actual_start_date,
+        "end_date": actual_end_date,
+        "frequency": config.get("backtest.frequency", "d")  # 日线数据
     }
     
-    # 绘制资金曲线 - 已在 generate_report 中调用，此处不再重复绘制
-    # logger.info("绘制资金曲线")
-    # visualizer.plot_equity_curve(account_history, title="双均线策略资金曲线", save_path="equity_curve.png", stock_info=stock_info)
-    
-    # 绘制回撤曲线 - 已在 generate_report 中调用，此处不再重复绘制
-    # logger.info("绘制回撤曲线")
-    # visualizer.plot_drawdown(account_history, title="双均线策略回撤曲线", save_path="drawdown.png", stock_info=stock_info)
-    
-    # 绘制收益率分布 - 已在 generate_report 中调用，此处不再重复绘制
-    # logger.info("绘制收益率分布")
-    # visualizer.plot_returns_distribution(account_history, title="双均线策略收益率分布", save_path="returns_distribution.png", stock_info=stock_info)
-    
-    # 绘制性能指标雷达图 - 已在 generate_report 中调用，此处不再重复绘制
-    # logger.info("绘制性能指标雷达图")
-    # visualizer.plot_performance_metrics(performance_metrics, title="双均线策略性能指标雷达图", save_path="performance_radar.png", stock_info=stock_info)
+    logger.info(f"准备可视化报告，使用实际股票信息: {stock_info}")
     
     # 生成完整可视化报告
     logger.info("生成完整可视化报告")
@@ -193,6 +208,8 @@ def main():
     
     # 打印最终结果
     print("\n=== 回测结果 ===")
+    print(f"股票代码: {actual_stock_code}")
+    print(f"回测日期范围: {actual_start_date} 至 {actual_end_date}")
     print(f"总收益率: {performance_metrics['total_return']:.2f}%")
     print(f"年化收益率: {performance_metrics['annual_return']:.2f}%")
     print(f"夏普比率: {performance_metrics['sharpe_ratio']:.2f}")
@@ -203,7 +220,6 @@ def main():
     
     print("\n回测结果已保存到当前目录")
     print("性能分析报告: backtest_performance_report.html")
-    print("可视化图表: equity_curve.png, drawdown.png, returns_distribution.png, performance_radar.png")
     print("完整可视化报告目录: visualization_results")
 
 

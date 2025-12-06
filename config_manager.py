@@ -9,6 +9,7 @@
 import json
 import yaml
 import os
+import pandas as pd
 from log_utils import get_logger
 
 # 获取日志记录器
@@ -313,6 +314,77 @@ class ConfigManager:
         
         logger.info("配置验证通过")
         return True
+    
+    def validate_param_consistency(self, actual_stock_code: str = None, actual_start_date: str = None, actual_end_date: str = None) -> bool:
+        """
+        验证配置参数与实际使用参数的一致性
+        
+        Args:
+            actual_stock_code: 实际使用的股票代码
+            actual_start_date: 实际使用的开始日期
+            actual_end_date: 实际使用的结束日期
+            
+        Returns:
+            bool: 参数一致返回True，不一致返回False
+            
+        Raises:
+            ValueError: 当参数严重不一致时抛出
+        """
+        logger.info("开始验证参数一致性")
+        
+        # 获取配置中的参数
+        config_stock_code = self.get("sample_data.symbol")
+        config_start_date = self.get("backtest.start_date")
+        config_end_date = self.get("backtest.end_date")
+        
+        logger.info(f"配置参数 - stock_code: {config_stock_code}, start_date: {config_start_date}, end_date: {config_end_date}")
+        logger.info(f"实际参数 - stock_code: {actual_stock_code}, start_date: {actual_start_date}, end_date: {actual_end_date}")
+        
+        # 验证结果
+        all_passed = True
+        
+        # 验证股票代码一致性
+        if actual_stock_code and config_stock_code and actual_stock_code != config_stock_code:
+            logger.warning(f"⚠️  股票代码不一致 - 配置: {config_stock_code}, 实际: {actual_stock_code}")
+            all_passed = False
+        else:
+            logger.info("✅ 股票代码一致性验证通过")
+        
+        # 验证日期范围一致性
+        if actual_start_date and config_start_date:
+            if pd.to_datetime(actual_start_date) != pd.to_datetime(config_start_date):
+                logger.warning(f"⚠️  开始日期不一致 - 配置: {config_start_date}, 实际: {actual_start_date}")
+                all_passed = False
+            else:
+                logger.info("✅ 开始日期一致性验证通过")
+        
+        if actual_end_date and config_end_date:
+            if pd.to_datetime(actual_end_date) != pd.to_datetime(config_end_date):
+                logger.warning(f"⚠️  结束日期不一致 - 配置: {config_end_date}, 实际: {actual_end_date}")
+                all_passed = False
+            else:
+                logger.info("✅ 结束日期一致性验证通过")
+        
+        # 验证日期范围重叠
+        if actual_start_date and actual_end_date and config_start_date and config_end_date:
+            actual_start = pd.to_datetime(actual_start_date)
+            actual_end = pd.to_datetime(actual_end_date)
+            config_start = pd.to_datetime(config_start_date)
+            config_end = pd.to_datetime(config_end_date)
+            
+            if actual_start > config_end or actual_end < config_start:
+                error_msg = f"❌ 日期范围无重叠 - 配置: {config_start_date} 至 {config_end_date}, 实际: {actual_start_date} 至 {actual_end_date}"
+                logger.error(error_msg)
+                raise ValueError(error_msg)
+            else:
+                logger.info("✅ 日期范围重叠验证通过")
+        
+        if all_passed:
+            logger.info("✅ 所有参数一致性验证通过")
+        else:
+            logger.warning("⚠️  部分参数一致性验证未通过，请检查配置")
+        
+        return all_passed
 
 
 # 创建全局配置管理器实例
@@ -408,3 +480,12 @@ if __name__ == "__main__":
         os.remove("test_config.json")
     if os.path.exists("test_config.yaml"):
         os.remove("test_config.yaml")
+
+
+# 自动加载配置文件（放在所有函数定义之后）
+config_file_path = "config.json"
+if os.path.exists(config_file_path):
+    load_config(config_file_path)
+    logger.info(f"配置文件 {config_file_path} 自动加载完成")
+else:
+    logger.warning(f"配置文件 {config_file_path} 不存在，使用默认配置")

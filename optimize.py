@@ -8,6 +8,7 @@
 
 import sys
 import os
+import json
 import pandas as pd
 import numpy as np
 from log_utils import setup_logger, get_logger
@@ -22,9 +23,12 @@ from param_visualizer import ParamVisualizer
 from param_permission_manager import ParamPermissionManager
 from backtest_engine import BacktestEngine
 from examples.simple_ma_strategy import SimpleMAStrategy
+from config_manager import get_config, load_config
 
 
-def generate_sample_data(start_date="2020-01-01", end_date="2023-12-31", symbol="600000.SH"):
+
+
+def generate_sample_data(start_date=None, end_date=None, symbol=None):
     """
     生成示例数据
     
@@ -35,7 +39,39 @@ def generate_sample_data(start_date="2020-01-01", end_date="2023-12-31", symbol=
         
     Returns:
         pd.DataFrame: 示例股票数据
+        
+    参数优先级：函数传入参数 > 配置文件参数 > 硬编码默认值
     """
+    logger = get_logger("generate_sample_data")
+    
+    # 获取配置管理器实例
+    config = get_config()
+    
+    # 记录原始参数
+    logger.info(f"原始传入参数 - start_date: {start_date}, end_date: {end_date}, symbol: {symbol}")
+    
+    # 应用参数优先级：函数参数 > 配置文件 > 硬编码默认值
+    original_start_date = start_date
+    original_end_date = end_date
+    original_symbol = symbol
+    
+    start_date = start_date or config.get("sample_data.start_date", "2020-01-01")
+    end_date = end_date or config.get("sample_data.end_date", "2023-12-31")
+    symbol = symbol or config.get("sample_data.symbol", "600000.SH")
+    
+    # 记录最终使用的参数及来源
+    logger.info(f"最终使用参数 - start_date: {start_date} (来源: {'传入参数' if original_start_date else '配置文件' if config.get('sample_data.start_date') else '硬编码默认值'})")
+    logger.info(f"最终使用参数 - end_date: {end_date} (来源: {'传入参数' if original_end_date else '配置文件' if config.get('sample_data.end_date') else '硬编码默认值'})")
+    logger.info(f"最终使用参数 - symbol: {symbol} (来源: {'传入参数' if original_symbol else '配置文件' if config.get('sample_data.symbol') else '硬编码默认值'})")
+    
+    # 参数验证
+    if pd.to_datetime(start_date) > pd.to_datetime(end_date):
+        raise ValueError(f"开始日期 {start_date} 不能晚于结束日期 {end_date}")
+    
+    # 验证股票代码格式（简单验证，实际使用时可能需要更复杂的验证）
+    if symbol and not isinstance(symbol, str):
+        raise ValueError(f"股票代码必须是字符串类型，当前为 {type(symbol)}")
+    
     # 生成日期范围
     dates = pd.date_range(start=start_date, end=end_date, freq='B')
     
@@ -81,7 +117,27 @@ def run_backtest(params, data):
         
     Returns:
         dict: 回测结果，包含性能指标
+        
+    Raises:
+        ValueError: 当配置参数与实际数据不一致时抛出
     """
+    logger = get_logger("run_backtest")
+    
+    # 提取数据中的实际股票代码（使用第一个股票代码）
+    data_stock_code = data.get('code', data.get('symbol', None))
+    if data_stock_code is not None:
+        data_stock_code = data_stock_code.iloc[0] if isinstance(data_stock_code, pd.Series) else data_stock_code
+        logger.info(f"数据中的实际股票代码: {data_stock_code}")
+    
+    # 提取数据的实际日期范围
+    date_col = 'date' if 'date' in data.columns else 'datetime' if 'datetime' in data.columns else None
+    if date_col is None:
+        raise ValueError("数据中缺少日期列(date或datetime)")
+    
+    data_start_date = data[date_col].min().strftime('%Y-%m-%d')
+    data_end_date = data[date_col].max().strftime('%Y-%m-%d')
+    logger.info(f"数据的实际日期范围: {data_start_date} 至 {data_end_date}")
+    
     # 创建策略实例
     strategy = SimpleMAStrategy()
     
@@ -91,17 +147,50 @@ def run_backtest(params, data):
     # 创建回测引擎
     backtester = BacktestEngine()
     
-    # 设置回测参数
-    backtester.set_params({
-        "initial_cash": params.get("initial_cash", 1000000),
-        "start_date": "2020-01-01",
-        "end_date": "2023-12-31",
-        "frequency": "d",
-        "transaction_cost": params.get("transaction_cost", 0.0003),
-        "slippage": params.get("slippage", 0.0001)
-    })
+    # 获取配置管理器实例
+    config = get_config()
+    
+    # 获取配置中的回测参数
+    config_start_date = config.get("backtest.start_date", "2020-01-01")
+    config_end_date = config.get("backtest.end_date", "2023-12-31")
+    config_stock_code = config.get("sample_data.symbol", "600000.SH")
+    
+    logger.info(f"配置中的股票代码: {config_stock_code}")
+    logger.info(f"配置中的回测日期范围: {config_start_date} 至 {config_end_date}")
+    
+    # 验证股票代码一致性
+    if data_stock_code and config_stock_code and data_stock_code != config_stock_code:
+        logger.warning(f"股票代码不一致 - 配置: {config_stock_code}, 数据: {data_stock_code}")
+        # 可以选择抛出异常或使用数据中的股票代码
+        # raise ValueError(f"股票代码不一致 - 配置: {config_stock_code}, 数据: {data_stock_code}")
+    
+    # 验证日期范围一致性
+    if pd.to_datetime(config_start_date) > pd.to_datetime(data_end_date) or pd.to_datetime(config_end_date) < pd.to_datetime(data_start_date):
+        raise ValueError(f"回测日期范围 {config_start_date} 至 {config_end_date} 与数据实际日期范围 {data_start_date} 至 {data_end_date} 无重叠")
+    
+    # 调用配置管理器的参数一致性校验函数
+    config.validate_param_consistency(
+        actual_stock_code=data_stock_code,
+        actual_start_date=data_start_date,
+        actual_end_date=data_end_date
+    )
+    
+    # 设置回测参数，优先级：params > 配置文件 > 硬编码默认值
+    # 使用数据的实际日期范围作为回测日期范围，确保一致性
+    backtest_params = {
+        "initial_cash": params.get("initial_cash", config.get("backtest.initial_cash", 1000000)),
+        "start_date": config_start_date,
+        "end_date": config_end_date,
+        "frequency": config.get("backtest.frequency", "d"),
+        "transaction_cost": params.get("transaction_cost", config.get("backtest.transaction_cost", 0.0003)),
+        "slippage": params.get("slippage", config.get("backtest.slippage", 0.0001))
+    }
+    
+    logger.info(f"设置回测参数: {backtest_params}")
+    backtester.set_params(backtest_params)
     
     # 加载数据
+    logger.info("开始加载回测数据")
     backtester.load_data(data)
     
     # 设置策略
@@ -111,10 +200,22 @@ def run_backtest(params, data):
     backtester.initialize()
     
     # 运行回测
+    logger.info("开始运行回测")
     backtester.run()
     
     # 获取回测结果
     results = backtester.get_results()
+    
+    # 在结果中添加关键参数信息，便于后续分析
+    results["params_info"] = {
+        "config_stock_code": config_stock_code,
+        "data_stock_code": data_stock_code,
+        "config_start_date": config_start_date,
+        "config_end_date": config_end_date,
+        "data_start_date": data_start_date,
+        "data_end_date": data_end_date,
+        "strategy_params": params
+    }
     
     return results
 
@@ -127,6 +228,9 @@ def main():
     setup_logger()
     logger = get_logger("optimize")
     logger.info("开始运行参数优化程序")
+    
+    # 加载配置文件
+    load_config("config.json")
     
     # 1. 初始化各个模块
     logger.info("初始化参数优化相关模块")
@@ -167,14 +271,17 @@ def main():
     logger.info("初始化回测引擎和上下文")
     backtester = BacktestEngine()
     
-    # 设置回测参数
+    # 获取配置管理器实例
+    config = get_config()
+    
+    # 设置回测参数，优先级：配置文件 > 硬编码默认值
     backtester.set_params({
-        "initial_cash": 1000000,
-        "start_date": "2020-01-01",
-        "end_date": "2023-12-31",
-        "frequency": "d",
-        "transaction_cost": 0.0003,
-        "slippage": 0.0001
+        "initial_cash": config.get("backtest.initial_cash", 1000000),
+        "start_date": config.get("backtest.start_date", "2020-01-01"),
+        "end_date": config.get("backtest.end_date", "2023-12-31"),
+        "frequency": config.get("backtest.frequency", "d"),
+        "transaction_cost": config.get("backtest.transaction_cost", 0.0003),
+        "slippage": config.get("backtest.slippage", 0.0001)
     })
     
     # 加载数据
@@ -311,8 +418,8 @@ def main():
     logger.info("展示优化结果")
     
     print("\n=== 参数优化结果 ===")
-    print(f"优化算法: grid_search")
-    print(f"迭代次数: {len(optimization_history)}")
+    print(f"优化算法: random_search")
+    print(f"迭代次数: {len(optimization_results['all_results'])}")
     print(f"最佳参数: {optimization_results['best_params']}")
     print(f"最佳性能 (夏普比率): {optimization_results['best_performance'].get('sharpe_ratio', 0):.4f}")
     
