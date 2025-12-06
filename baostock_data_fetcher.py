@@ -11,36 +11,8 @@ from db_module import DatabaseManager
 setup_logger()
 logger = get_logger("baostock_data_fetcher")
 
-def _load_config(config_path: str) -> dict:
-    """
-    加载配置文件函数
-
-    从指定的JSON配置文件中读取配置信息，并返回配置字典
-
-    Args:
-        config_path: 配置文件的路径，通常是"config.json"
-
-    Returns:
-        dict: 包含配置信息的字典，如果加载失败则返回空字典
-    """
-    try:
-        # 尝试以UTF-8编码打开配置文件
-        with open(config_path, 'r', encoding='utf-8') as f:
-            # 加载JSON数据
-            config_data = json.load(f)
-            # 如果配置文件包含'config'节点，使用该节点内容，否则使用整个配置
-            if 'config' in config_data:
-                return config_data['config']
-            else:
-                return config_data
-    except FileNotFoundError:
-        # 配置文件不存在时的处理
-        logger.error(f"配置文件 {config_path} 未找到，使用默认配置")
-        return {}
-    except json.JSONDecodeError:
-        # JSON格式错误时的处理
-        logger.error(f"配置文件 {config_path} 格式错误，使用默认配置")
-        return {}
+# 从config_manager导入配置管理功能
+from config_manager import get_config
 
 
 def _load_all_stock_code(stock_code_file_path: str):
@@ -79,15 +51,14 @@ class BaoStockDataFetcher:
 
         Args:
             config_path: 配置文件路径，默认为"config.json"
-            stock_code: 股票代码，默认为"SH.600300"（维维股份）
         """
-        # 加载配置文件
-        self.config = _load_config(config_path)
+        # 使用全局配置管理器获取配置
+        config = get_config()
 
         # 从配置中获取股票代码文件路径，用于存储股票代码列表
-        self.stock_code_file_path = self.config.get('stock_code_file_path')
+        self.stock_code_file_path = config.get('data_fetcher.stock_code_file_path')
         # 从配置中获取股票数据库路径，用于存储股票数据
-        self.stock_data_db_path = self.config.get('stock_data_db_path')
+        self.stock_data_db_path = config.get('data_fetcher.stock_data_db_path')
 
         # 记录配置加载情况
         logger.info(

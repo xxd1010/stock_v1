@@ -228,6 +228,46 @@
         }
       },
       "timestamp": "2025-12-06T12:21:40.189721"
+    },
+    {
+      "username": "admin",
+      "operation": "optimize",
+      "details": {
+        "strategy_name": "simple_ma",
+        "params_before": {
+          "ma_short": 10,
+          "ma_long": 20,
+          "transaction_cost": 0.0003,
+          "initial_cash": 1000000
+        },
+        "params_after": {
+          "ma_short": 26,
+          "ma_long": 40,
+          "transaction_cost": 0.0006223686835290756,
+          "initial_cash": 1161116
+        }
+      },
+      "timestamp": "2025-12-06T13:35:32.336700"
+    },
+    {
+      "username": "admin",
+      "operation": "optimize",
+      "details": {
+        "strategy_name": "simple_ma",
+        "params_before": {
+          "ma_short": 10,
+          "ma_long": 20,
+          "transaction_cost": 0.0003,
+          "initial_cash": 1000000
+        },
+        "params_after": {
+          "ma_short": 18,
+          "ma_long": 38,
+          "transaction_cost": 0.0002853800096524292,
+          "initial_cash": 150372
+        }
+      },
+      "timestamp": "2025-12-07T00:19:39.628487"
     }
   ]
 }

@@ -1,12 +1,12 @@
 {
-  "operation":"backtest",
+  "operation": "optimize",
   "sample_data": {
     "start_date": "2023-01-01",
     "end_date": "2025-12-31",
-    "symbol": "sh.301662"
+    "symbol": "sz.002340"
   },
   "backtest": {
-    "initial_cash": 1399962,
+    "initial_cash": 10000,
     "start_date": "2023-01-01",
     "end_date": "2025-12-31",
     "frequency": "d",

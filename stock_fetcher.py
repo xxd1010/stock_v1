@@ -141,11 +141,21 @@ def parse_arguments():
     # 操作类型
     args.operation = config.get("operation", "fetch")
     
-    # 股票相关参数
-    args.stock_code = config.get("stock_code")
-    args.start_date = config.get("start_date")
-    args.end_date = config.get("end_date")
-    args.frequency = config.get("frequency", "d")
+    # 股票相关参数（从sample_data或backtest节点读取）
+    sample_data = config.get("sample_data", {})
+    backtest = config.get("backtest", {})
+    
+    # 股票代码（优先从sample_data.symbol读取）
+    args.stock_code = sample_data.get("symbol")
+    
+    # 日期范围（优先从backtest读取）
+    args.start_date = backtest.get("start_date")
+    args.end_date = backtest.get("end_date")
+    
+    # 频率（优先从backtest读取）
+    args.frequency = backtest.get("frequency", "d")
+    
+    # 股票列表路径
     args.list = config.get("stock_list_path")
     
     logger.info(f"从配置文件读取参数: 操作={args.operation}, 股票代码={args.stock_code}, 日期范围={args.start_date} 至 {args.end_date}")
