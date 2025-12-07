@@ -9318,3 +9318,712 @@ NameError: name 'datetime' is not defined. Did you forget to import 'datetime'
 NameError: name 'datetime' is not defined. Did you forget to import 'datetime'
 
 2025-12-07 00:19:39 - data_source_manager - INFO - 已登出BaoStock API
+2025-12-07 21:23:39 - main - INFO - 股票分析程序启动
+2025-12-07 21:23:39 - config_manager - INFO - 开始加载配置文件: config.json
+2025-12-07 21:23:39 - config_manager - INFO - 配置文件加载成功: config.json
+2025-12-07 21:23:39 - main - INFO - 当前操作: optimize (参数优化)
+2025-12-07 21:23:39 - main - INFO - 调用回测程序
+2025-12-07 21:23:39 - main - INFO - 执行参数优化
+2025-12-07 21:23:40 - optimize - INFO - 开始运行参数优化程序
+2025-12-07 21:23:40 - config_manager - INFO - 开始加载配置文件: config.json
+2025-12-07 21:23:40 - config_manager - INFO - 配置文件加载成功: config.json
+2025-12-07 21:23:40 - optimize - INFO - 初始化参数优化相关模块
+2025-12-07 21:23:40 - ParamVersionManager - INFO - 初始化参数版本管理器
+2025-12-07 21:23:40 - ParamVisualizer - INFO - 初始化参数可视化器
+2025-12-07 21:23:40 - ParamPermissionManager - INFO - 初始化参数权限管理器
+2025-12-07 21:23:40 - ParamPermissionManager - INFO - 加载了 2 个用户权限配置
+2025-12-07 21:23:40 - ParamPermissionManager - INFO - 加载了 14 条操作日志
+2025-12-07 21:23:40 - optimize - INFO - 检查用户权限
+2025-12-07 21:23:40 - ParamPermissionManager - INFO - 认证用户: admin
+2025-12-07 21:23:40 - ParamPermissionManager - INFO - 检查用户权限: admin, 操作: edit
+2025-12-07 21:23:40 - optimize - INFO - 生成示例数据
+2025-12-07 21:23:40 - generate_sample_data - INFO - 原始传入参数 - start_date: None, end_date: None, symbol: None
+2025-12-07 21:23:40 - generate_sample_data - INFO - 最终使用参数 - start_date: 2023-01-01 (来源: 配置文件)
+2025-12-07 21:23:40 - generate_sample_data - INFO - 最终使用参数 - end_date: 2025-12-31 (来源: 配置文件)
+2025-12-07 21:23:40 - generate_sample_data - INFO - 最终使用参数 - symbol: sz.002340 (来源: 配置文件)
+2025-12-07 21:23:40 - optimize - INFO - 生成了 783 条示例数据
+2025-12-07 21:23:40 - optimize - INFO - 初始化回测引擎和上下文
+2025-12-07 21:23:40 - backtest_engine - INFO - 初始化回测引擎
+2025-12-07 21:23:40 - matching_engine - INFO - 初始化撮合引擎
+2025-12-07 21:23:40 - matching_engine - INFO - 撮合引擎初始化完成
+2025-12-07 21:23:40 - data_source_manager - INFO - 初始化数据源管理器
+2025-12-07 21:23:42 - data_source_manager - INFO - BaoStock登录成功
+2025-12-07 21:23:42 - data_source_manager - INFO - 初始化数据源成功: baostock
+2025-12-07 21:23:42 - data_source_manager - INFO - 设置默认数据源: baostock
+2025-12-07 21:23:42 - data_source_manager - INFO - 初始化数据源成功: csv
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎初始化完成
+2025-12-07 21:23:42 - backtest_engine - INFO - 设置回测参数前的当前值: {'initial_cash': 1000000, 'start_date': None, 'end_date': None, 'frequency': 'd', 'transaction_cost': 0.0003, 'slippage': 0.0001, 'max_position_percentage': 0.1, 'commission_rate': 0.0003, 'stamp_tax': 0.001}
+2025-12-07 21:23:42 - backtest_engine - INFO - 设置的新参数: {'initial_cash': 10000, 'start_date': '2023-01-01', 'end_date': '2025-12-31', 'frequency': 'd', 'transaction_cost': 0.0009, 'slippage': 0.0001}
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 initial_cash: 原值=1000000, 新值=10000, 来源=传入参数
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 start_date: 原值=None, 新值=2023-01-01, 来源=传入参数
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 end_date: 原值=None, 新值=2025-12-31, 来源=传入参数
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 frequency: 原值=d, 新值=d, 来源=传入参数
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 transaction_cost: 原值=0.0003, 新值=0.0009, 来源=传入参数
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 slippage: 原值=0.0001, 新值=0.0001, 来源=传入参数
+2025-12-07 21:23:42 - matching_engine - INFO - 设置撮合参数: {'transaction_cost': 0.0009, 'slippage': 0.0001}
+2025-12-07 21:23:42 - backtest_engine - INFO - 更新撮合引擎参数 - 交易成本: 0.0009, 滑点: 0.0001
+2025-12-07 21:23:42 - backtest_engine - INFO - 更新初始资金 - 原值: 1000000, 新值: 10000
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数设置完成，最终回测参数: {'initial_cash': 10000, 'start_date': '2023-01-01', 'end_date': '2025-12-31', 'frequency': 'd', 'transaction_cost': 0.0009, 'slippage': 0.0001, 'max_position_percentage': 0.1, 'commission_rate': 0.0003, 'stamp_tax': 0.001}
+2025-12-07 21:23:42 - backtest_engine - INFO - 开始加载回测数据
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据中的股票代码: sz.002340
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据的实际日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎配置的日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - WARNING - 回测开始日期 2023-01-01 早于数据实际开始日期 2023-01-02
+2025-12-07 21:23:42 - backtest_engine - INFO - 过滤后的实际回测日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测数据加载完成，共 783 条记录
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 初始化参数优化器
+2025-12-07 21:23:42 - optimize - INFO - 定义参数空间
+2025-12-07 21:23:42 - optimize - INFO - 推荐参数
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 生成参数推荐，使用方法: statistical
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 参数推荐完成: {'ma_short': 17, 'ma_long': 35, 'transaction_cost': 0.00055, 'initial_cash': 1050000}
+2025-12-07 21:23:42 - optimize - INFO - 推荐参数: {'ma_short': 17, 'ma_long': 35, 'transaction_cost': 0.00055, 'initial_cash': 1050000}
+2025-12-07 21:23:42 - optimize - INFO - 执行参数优化
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 开始参数优化，使用算法: random_search
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 执行随机搜索优化
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 评估随机参数组合 1/3: {'ma_short': 8, 'ma_long': 48, 'transaction_cost': 0.00010198812760031466, 'initial_cash': 1999898}
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 评估参数性能: {'ma_short': 8, 'ma_long': 48, 'transaction_cost': 0.00010198812760031466, 'initial_cash': 1999898}
+2025-12-07 21:23:42 - base_strategy - INFO - 初始化策略基类
+2025-12-07 21:23:42 - technical_indicators - INFO - 初始化技术指标计算模块
+2025-12-07 21:23:42 - technical_indicators - INFO - 技术指标计算模块初始化完成
+2025-12-07 21:23:42 - base_strategy - INFO - 策略基类初始化完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 初始化双均线策略
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 双均线策略初始化完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 设置策略参数: {'ma_short': 8, 'ma_long': 48, 'transaction_cost': 0.00010198812760031466, 'initial_cash': 1999898}
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 更新双均线策略参数: {'ma_short': 8, 'ma_long': 48, 'transaction_cost': 0.00010198812760031466, 'initial_cash': 1999898}
+2025-12-07 21:23:42 - backtest_engine - INFO - 设置策略: SimpleMAStrategy
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 设置策略参数: {'initial_cash': 10000, 'transaction_cost': 0.0009, 'slippage': 0.0001, 'max_position_percentage': 0.1}
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 更新双均线策略参数: {'initial_cash': 10000, 'transaction_cost': 0.0009, 'slippage': 0.0001, 'max_position_percentage': 0.1}
+2025-12-07 21:23:42 - backtest_engine - INFO - 开始加载回测数据
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据中的股票代码: sz.002340
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据的实际日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎配置的日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - WARNING - 回测开始日期 2023-01-01 早于数据实际开始日期 2023-01-02
+2025-12-07 21:23:42 - backtest_engine - INFO - 过滤后的实际回测日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测数据加载完成，共 783 条记录
+2025-12-07 21:23:42 - backtest_engine - INFO - 初始化回测
+2025-12-07 21:23:42 - backtest_engine - INFO - 重置回测引擎
+2025-12-07 21:23:42 - matching_engine - INFO - 重置撮合引擎
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合引擎重置完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 重置策略状态
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎重置完成
+2025-12-07 21:23:42 - config_manager - INFO - 开始验证参数一致性
+2025-12-07 21:23:42 - config_manager - INFO - 配置参数 - stock_code: sz.002340, start_date: 2023-01-01, end_date: 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - 实际参数 - stock_code: sz.002340, start_date: 2023-01-02, end_date: 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 股票代码一致性验证通过
+2025-12-07 21:23:42 - config_manager - WARNING - ⚠️  开始日期不一致 - 配置: 2023-01-01, 实际: 2023-01-02
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 结束日期一致性验证通过
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 日期范围重叠验证通过
+2025-12-07 21:23:42 - config_manager - WARNING - ⚠️  部分参数一致性验证未通过，请检查配置
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 初始化策略
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算所有技术指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算移动平均线
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 5 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 10 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 20 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 30 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 60 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 120 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 250 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算MACD指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算MACD指标完成，参数: fast=12, slow=26, signal=9
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算RSI指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI6 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI12 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI24 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算KDJ指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算KDJ指标完成，参数: K=9, D=3, J=3
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算布林带指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算布林带指标完成，参数: 周期=20, 标准差倍数=2
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算波动率
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 20 日波动率完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算成交量指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算成交量指标完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 所有技术指标计算完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 计算双均线策略自定义指标
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 双均线策略自定义指标计算完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 策略初始化完成
+2025-12-07 21:23:42 - backtest_engine - INFO - === 回测参数摘要 ===
+2025-12-07 21:23:42 - backtest_engine - INFO - 股票代码: sz.002340
+2025-12-07 21:23:42 - backtest_engine - INFO - 配置回测日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据实际日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 初始资金: 10000
+2025-12-07 21:23:42 - backtest_engine - INFO - 交易成本: 0.0009
+2025-12-07 21:23:42 - backtest_engine - INFO - 滑点: 0.0001
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据条数: 783
+2025-12-07 21:23:42 - backtest_engine - INFO - 策略名称: SimpleMAStrategy
+2025-12-07 21:23:42 - backtest_engine - INFO - === 回测参数摘要结束 ===
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测初始化完成
+2025-12-07 21:23:42 - backtest_engine - INFO - 开始回测
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_1_e78417b9, sz.002340, buy, 9.407393562512743, 106, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_1_e78417b9, sz.002340, buy, 9.407393562512743, 106, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_1_e78417b9, sz.002340, buy, 9.407393562512743, 106, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.119334', 'order_id': 'order_1_e78417b9', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.408334301868994), 'volume': 106, 'transaction_cost': np.float64(0.897555092398302), 'slippage': np.float64(0.0009407393562512744), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 119334), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.119334', 'order_id': 'order_1_e78417b9', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.408334301868994), 'volume': 106, 'transaction_cost': np.float64(0.897555092398302), 'slippage': np.float64(0.0009407393562512744), 'timestamp': Timestamp('2023-04-11 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_2_acd8ef1a, sz.002340, buy, 9.472599181677886, 94, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_2_acd8ef1a, sz.002340, buy, 9.472599181677886, 94, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_2_acd8ef1a, sz.002340, buy, 9.472599181677886, 94, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.123335', 'order_id': 'order_2_acd8ef1a', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.473546441596053), 'volume': 94, 'transaction_cost': np.float64(0.8014620289590261), 'slippage': np.float64(0.0009472599181677886), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 123335), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.123335', 'order_id': 'order_2_acd8ef1a', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.473546441596053), 'volume': 94, 'transaction_cost': np.float64(0.8014620289590261), 'slippage': np.float64(0.0009472599181677886), 'timestamp': Timestamp('2023-06-13 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_3_1092b4c4, sz.002340, buy, 9.839179884580002, 82, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_3_1092b4c4, sz.002340, buy, 9.839179884580002, 82, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_3_1092b4c4, sz.002340, buy, 9.839179884580002, 82, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.128332', 'order_id': 'order_3_1092b4c4', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.84016380256846), 'volume': 82, 'transaction_cost': np.float64(0.7262040886295523), 'slippage': np.float64(0.0009839179884580003), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 128332), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.128332', 'order_id': 'order_3_1092b4c4', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.84016380256846), 'volume': 82, 'transaction_cost': np.float64(0.7262040886295523), 'slippage': np.float64(0.0009839179884580003), 'timestamp': Timestamp('2023-08-08 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_4_40e3068d, sz.002340, buy, 12.594057320214299, 57, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_4_40e3068d, sz.002340, buy, 12.594057320214299, 57, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_4_40e3068d, sz.002340, buy, 12.594057320214299, 57, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.141947', 'order_id': 'order_4_40e3068d', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.59531672594632), 'volume': 57, 'transaction_cost': np.float64(0.6461397480410462), 'slippage': np.float64(0.00125940573202143), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 141947), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.141947', 'order_id': 'order_4_40e3068d', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.59531672594632), 'volume': 57, 'transaction_cost': np.float64(0.6461397480410462), 'slippage': np.float64(0.00125940573202143), 'timestamp': Timestamp('2024-02-08 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_5_67b6c23a, sz.002340, buy, 12.669125602703414, 51, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_5_67b6c23a, sz.002340, buy, 12.669125602703414, 51, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_5_67b6c23a, sz.002340, buy, 12.669125602703414, 51, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.142949', 'order_id': 'order_5_67b6c23a', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.670392515263684), 'volume': 51, 'transaction_cost': np.float64(0.581571016450603), 'slippage': np.float64(0.0012669125602703414), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 142949), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.142949', 'order_id': 'order_5_67b6c23a', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.670392515263684), 'volume': 51, 'transaction_cost': np.float64(0.581571016450603), 'slippage': np.float64(0.0012669125602703414), 'timestamp': Timestamp('2024-02-21 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_6_fe0b0b7f, sz.002340, buy, 14.717366916567464, 40, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_6_fe0b0b7f, sz.002340, buy, 14.717366916567464, 40, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_6_fe0b0b7f, sz.002340, buy, 14.717366916567464, 40, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.149951', 'order_id': 'order_6_fe0b0b7f', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(14.718838653259121), 'volume': 40, 'transaction_cost': np.float64(0.5298781915173283), 'slippage': np.float64(0.0014717366916567464), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 149951), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.149951', 'order_id': 'order_6_fe0b0b7f', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(14.718838653259121), 'volume': 40, 'transaction_cost': np.float64(0.5298781915173283), 'slippage': np.float64(0.0014717366916567464), 'timestamp': Timestamp('2024-05-28 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_7_fa05a024, sz.002340, buy, 16.29771445457244, 32, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_7_fa05a024, sz.002340, buy, 16.29771445457244, 32, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_7_fa05a024, sz.002340, buy, 16.29771445457244, 32, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.161458', 'order_id': 'order_7_fa05a024', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.299344226017897), 'volume': 32, 'transaction_cost': np.float64(0.46942111370931544), 'slippage': np.float64(0.001629771445457244), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 161458), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.161458', 'order_id': 'order_7_fa05a024', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.299344226017897), 'volume': 32, 'transaction_cost': np.float64(0.46942111370931544), 'slippage': np.float64(0.001629771445457244), 'timestamp': Timestamp('2024-11-06 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_8_2133dc3d, sz.002340, buy, 16.326736262597596, 29, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_8_2133dc3d, sz.002340, buy, 16.326736262597596, 29, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_8_2133dc3d, sz.002340, buy, 16.326736262597596, 29, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.162458', 'order_id': 'order_8_2133dc3d', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.328368936223857), 'volume': 29, 'transaction_cost': np.float64(0.4261704292354427), 'slippage': np.float64(0.0016326736262597596), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 162458), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.162458', 'order_id': 'order_8_2133dc3d', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.328368936223857), 'volume': 29, 'transaction_cost': np.float64(0.4261704292354427), 'slippage': np.float64(0.0016326736262597596), 'timestamp': Timestamp('2024-11-21 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_9_a5725a35, sz.002340, buy, 15.28220730050277, 28, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_9_a5725a35, sz.002340, buy, 15.28220730050277, 28, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_9_a5725a35, sz.002340, buy, 15.28220730050277, 28, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.170383', 'order_id': 'order_9_a5725a35', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(15.28373552123282), 'volume': 28, 'transaction_cost': np.float64(0.3851501351350671), 'slippage': np.float64(0.0015282207300502772), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 170383), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.170383', 'order_id': 'order_9_a5725a35', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(15.28373552123282), 'volume': 28, 'transaction_cost': np.float64(0.3851501351350671), 'slippage': np.float64(0.0015282207300502772), 'timestamp': Timestamp('2025-03-03 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_10_c4209c72, sz.002340, buy, 14.812644602868403, 26, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_10_c4209c72, sz.002340, buy, 14.812644602868403, 26, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_10_c4209c72, sz.002340, buy, 14.812644602868403, 26, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.172389', 'order_id': 'order_10_c4209c72', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(14.81412586732869), 'volume': 26, 'transaction_cost': np.float64(0.34665054529549133), 'slippage': np.float64(0.0014812644602868403), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 172389), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.172389', 'order_id': 'order_10_c4209c72', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(14.81412586732869), 'volume': 26, 'transaction_cost': np.float64(0.34665054529549133), 'slippage': np.float64(0.0014812644602868403), 'timestamp': Timestamp('2025-03-19 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_11_90b8b239, sz.002340, buy, 16.808053837641687, 21, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_11_90b8b239, sz.002340, buy, 16.808053837641687, 21, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_11_90b8b239, sz.002340, buy, 16.808053837641687, 21, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.190393', 'order_id': 'order_11_90b8b239', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.80973464302545), 'volume': 21, 'transaction_cost': np.float64(0.31770398475318096), 'slippage': np.float64(0.0016808053837641687), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 190393), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.190393', 'order_id': 'order_11_90b8b239', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.80973464302545), 'volume': 21, 'transaction_cost': np.float64(0.31770398475318096), 'slippage': np.float64(0.0016808053837641687), 'timestamp': Timestamp('2025-07-09 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_12_7063eb62, sz.002340, buy, 16.69084173573358, 19, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_12_7063eb62, sz.002340, buy, 16.69084173573358, 19, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_12_7063eb62, sz.002340, buy, 16.69084173573358, 19, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.194388', 'order_id': 'order_12_7063eb62', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.692510819907156), 'volume': 19, 'transaction_cost': np.float64(0.2854419350204123), 'slippage': np.float64(0.0016690841735733583), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 194388), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.194388', 'order_id': 'order_12_7063eb62', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.692510819907156), 'volume': 19, 'transaction_cost': np.float64(0.2854419350204123), 'slippage': np.float64(0.0016690841735733583), 'timestamp': Timestamp('2025-08-26 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_13_c46d12a2, sz.002340, buy, 16.685065072663974, 17, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_13_c46d12a2, sz.002340, buy, 16.685065072663974, 17, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_13_c46d12a2, sz.002340, buy, 16.685065072663974, 17, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.197391', 'order_id': 'order_13_c46d12a2', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.68673357917124), 'volume': 17, 'transaction_cost': np.float64(0.25530702376132), 'slippage': np.float64(0.0016685065072663974), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 197391), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.197391', 'order_id': 'order_13_c46d12a2', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.68673357917124), 'volume': 17, 'transaction_cost': np.float64(0.25530702376132), 'slippage': np.float64(0.0016685065072663974), 'timestamp': Timestamp('2025-09-29 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_14_4d2b3496, sz.002340, buy, 16.733767962757103, 15, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_14_4d2b3496, sz.002340, buy, 16.733767962757103, 15, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_14_4d2b3496, sz.002340, buy, 16.733767962757103, 15, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.200388', 'order_id': 'order_14_4d2b3496', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.73544133955338), 'volume': 15, 'transaction_cost': np.float64(0.2259284580839706), 'slippage': np.float64(0.0016733767962757104), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 200388), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.200388', 'order_id': 'order_14_4d2b3496', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.73544133955338), 'volume': 15, 'transaction_cost': np.float64(0.2259284580839706), 'slippage': np.float64(0.0016733767962757104), 'timestamp': Timestamp('2025-11-03 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_15_fff60dea, sz.002340, buy, 16.699779294232545, 13, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_15_fff60dea, sz.002340, buy, 16.699779294232545, 13, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_15_fff60dea, sz.002340, buy, 16.699779294232545, 13, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.230236', 'order_id': 'order_15_fff60dea', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.70144927216197), 'volume': 13, 'transaction_cost': np.float64(0.19540695648429504), 'slippage': np.float64(0.0016699779294232545), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 230236), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.230236', 'order_id': 'order_15_fff60dea', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.70144927216197), 'volume': 13, 'transaction_cost': np.float64(0.19540695648429504), 'slippage': np.float64(0.0016699779294232545), 'timestamp': Timestamp('2025-12-08 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 计算性能指标
+2025-12-07 21:23:42 - backtest_engine - INFO - 性能指标计算完成: {'total_return': np.float64(29.85), 'annual_return': np.float64(9.1), 'volatility': np.float64(9.56), 'sharpe_ratio': np.float64(0.64), 'max_drawdown': np.float64(-13.04), 'sortino_ratio': np.float64(1.0), 'win_rate': 0.0, 'profit_loss_ratio': 0, 'total_trades': 15, 'avg_trade_return': np.float64(0.0351), 'trading_days': 785}
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测完成
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 参数性能评估完成: {'total_return': np.float64(29.85), 'annual_return': np.float64(9.1), 'volatility': np.float64(9.56), 'sharpe_ratio': np.float64(0.64), 'max_drawdown': np.float64(-13.04), 'sortino_ratio': np.float64(1.0), 'win_rate': 0.0, 'profit_loss_ratio': 0, 'total_trades': 15, 'avg_trade_return': np.float64(0.0351), 'trading_days': 785}
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 评估随机参数组合 2/3: {'ma_short': 17, 'ma_long': 31, 'transaction_cost': 0.0007593445676029341, 'initial_cash': 1149084}
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 评估参数性能: {'ma_short': 17, 'ma_long': 31, 'transaction_cost': 0.0007593445676029341, 'initial_cash': 1149084}
+2025-12-07 21:23:42 - base_strategy - INFO - 初始化策略基类
+2025-12-07 21:23:42 - technical_indicators - INFO - 初始化技术指标计算模块
+2025-12-07 21:23:42 - technical_indicators - INFO - 技术指标计算模块初始化完成
+2025-12-07 21:23:42 - base_strategy - INFO - 策略基类初始化完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 初始化双均线策略
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 双均线策略初始化完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 设置策略参数: {'ma_short': 17, 'ma_long': 31, 'transaction_cost': 0.0007593445676029341, 'initial_cash': 1149084}
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 更新双均线策略参数: {'ma_short': 17, 'ma_long': 31, 'transaction_cost': 0.0007593445676029341, 'initial_cash': 1149084}
+2025-12-07 21:23:42 - backtest_engine - INFO - 设置策略: SimpleMAStrategy
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 设置策略参数: {'initial_cash': 10000, 'transaction_cost': 0.0009, 'slippage': 0.0001, 'max_position_percentage': 0.1}
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 更新双均线策略参数: {'initial_cash': 10000, 'transaction_cost': 0.0009, 'slippage': 0.0001, 'max_position_percentage': 0.1}
+2025-12-07 21:23:42 - backtest_engine - INFO - 开始加载回测数据
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据中的股票代码: sz.002340
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据的实际日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎配置的日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - WARNING - 回测开始日期 2023-01-01 早于数据实际开始日期 2023-01-02
+2025-12-07 21:23:42 - backtest_engine - INFO - 过滤后的实际回测日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测数据加载完成，共 783 条记录
+2025-12-07 21:23:42 - backtest_engine - INFO - 初始化回测
+2025-12-07 21:23:42 - backtest_engine - INFO - 重置回测引擎
+2025-12-07 21:23:42 - matching_engine - INFO - 重置撮合引擎
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合引擎重置完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 重置策略状态
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎重置完成
+2025-12-07 21:23:42 - config_manager - INFO - 开始验证参数一致性
+2025-12-07 21:23:42 - config_manager - INFO - 配置参数 - stock_code: sz.002340, start_date: 2023-01-01, end_date: 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - 实际参数 - stock_code: sz.002340, start_date: 2023-01-02, end_date: 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 股票代码一致性验证通过
+2025-12-07 21:23:42 - config_manager - WARNING - ⚠️  开始日期不一致 - 配置: 2023-01-01, 实际: 2023-01-02
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 结束日期一致性验证通过
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 日期范围重叠验证通过
+2025-12-07 21:23:42 - config_manager - WARNING - ⚠️  部分参数一致性验证未通过，请检查配置
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 初始化策略
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算所有技术指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算移动平均线
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 5 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 10 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 20 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 30 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 60 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 120 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 250 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算MACD指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算MACD指标完成，参数: fast=12, slow=26, signal=9
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算RSI指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI6 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI12 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI24 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算KDJ指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算KDJ指标完成，参数: K=9, D=3, J=3
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算布林带指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算布林带指标完成，参数: 周期=20, 标准差倍数=2
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算波动率
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 20 日波动率完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算成交量指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算成交量指标完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 所有技术指标计算完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 计算双均线策略自定义指标
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 双均线策略自定义指标计算完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 策略初始化完成
+2025-12-07 21:23:42 - backtest_engine - INFO - === 回测参数摘要 ===
+2025-12-07 21:23:42 - backtest_engine - INFO - 股票代码: sz.002340
+2025-12-07 21:23:42 - backtest_engine - INFO - 配置回测日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据实际日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 初始资金: 10000
+2025-12-07 21:23:42 - backtest_engine - INFO - 交易成本: 0.0009
+2025-12-07 21:23:42 - backtest_engine - INFO - 滑点: 0.0001
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据条数: 783
+2025-12-07 21:23:42 - backtest_engine - INFO - 策略名称: SimpleMAStrategy
+2025-12-07 21:23:42 - backtest_engine - INFO - === 回测参数摘要结束 ===
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测初始化完成
+2025-12-07 21:23:42 - backtest_engine - INFO - 开始回测
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_1_ac8de0db, sz.002340, buy, 9.16321864518875, 109, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_1_ac8de0db, sz.002340, buy, 9.16321864518875, 109, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_1_ac8de0db, sz.002340, buy, 9.16321864518875, 109, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.255819', 'order_id': 'order_1_ac8de0db', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.164134967053268), 'volume': 109, 'transaction_cost': np.float64(0.8990016402679256), 'slippage': np.float64(0.000916321864518875), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 255819), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.255819', 'order_id': 'order_1_ac8de0db', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.164134967053268), 'volume': 109, 'transaction_cost': np.float64(0.8990016402679256), 'slippage': np.float64(0.000916321864518875), 'timestamp': Timestamp('2023-04-06 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_2_199c2273, sz.002340, buy, 9.763532117738082, 92, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_2_199c2273, sz.002340, buy, 9.763532117738082, 92, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_2_199c2273, sz.002340, buy, 9.763532117738082, 92, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.261333', 'order_id': 'order_2_199c2273', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.764508470949856), 'volume': 92, 'transaction_cost': np.float64(0.808501301394648), 'slippage': np.float64(0.0009763532117738082), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 261333), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.261333', 'order_id': 'order_2_199c2273', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.764508470949856), 'volume': 92, 'transaction_cost': np.float64(0.808501301394648), 'slippage': np.float64(0.0009763532117738082), 'timestamp': Timestamp('2023-06-19 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_3_3cd62f11, sz.002340, buy, 9.864713563070454, 82, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_3_3cd62f11, sz.002340, buy, 9.864713563070454, 82, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_3_3cd62f11, sz.002340, buy, 9.864713563070454, 82, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.264333', 'order_id': 'order_3_3cd62f11', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.865700034426762), 'volume': 82, 'transaction_cost': np.float64(0.728088662540695), 'slippage': np.float64(0.0009864713563070455), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 264333), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.264333', 'order_id': 'order_3_3cd62f11', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.865700034426762), 'volume': 82, 'transaction_cost': np.float64(0.728088662540695), 'slippage': np.float64(0.0009864713563070455), 'timestamp': Timestamp('2023-08-11 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_4_6edbbb37, sz.002340, buy, 12.256181418837762, 59, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_4_6edbbb37, sz.002340, buy, 12.256181418837762, 59, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_4_6edbbb37, sz.002340, buy, 12.256181418837762, 59, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.270331', 'order_id': 'order_4_6edbbb37', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.257407036979647), 'volume': 59, 'transaction_cost': np.float64(0.6508683136636192), 'slippage': np.float64(0.0012256181418837764), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 270331), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.270331', 'order_id': 'order_4_6edbbb37', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.257407036979647), 'volume': 59, 'transaction_cost': np.float64(0.6508683136636192), 'slippage': np.float64(0.0012256181418837764), 'timestamp': Timestamp('2023-10-24 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_5_e5c70c64, sz.002340, buy, 12.391380013099553, 52, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_5_e5c70c64, sz.002340, buy, 12.391380013099553, 52, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_5_e5c70c64, sz.002340, buy, 12.391380013099553, 52, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.274331', 'order_id': 'order_5_e5c70c64', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.392619151100863), 'volume': 52, 'transaction_cost': np.float64(0.5799745762715204), 'slippage': np.float64(0.0012391380013099555), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 274331), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.274331', 'order_id': 'order_5_e5c70c64', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.392619151100863), 'volume': 52, 'transaction_cost': np.float64(0.5799745762715204), 'slippage': np.float64(0.0012391380013099555), 'timestamp': Timestamp('2023-12-18 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_6_5953f688, sz.002340, buy, 12.47202245486424, 47, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_6_5953f688, sz.002340, buy, 12.47202245486424, 47, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_6_5953f688, sz.002340, buy, 12.47202245486424, 47, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.278337', 'order_id': 'order_6_5953f688', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.473269657109727), 'volume': 47, 'transaction_cost': np.float64(0.5276193064957414), 'slippage': np.float64(0.001247202245486424), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 278337), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.278337', 'order_id': 'order_6_5953f688', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.473269657109727), 'volume': 47, 'transaction_cost': np.float64(0.5276193064957414), 'slippage': np.float64(0.001247202245486424), 'timestamp': Timestamp('2024-02-12 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_7_83a96396, sz.002340, buy, 14.732682453999267, 36, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_7_83a96396, sz.002340, buy, 14.732682453999267, 36, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_7_83a96396, sz.002340, buy, 14.732682453999267, 36, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.285331', 'order_id': 'order_7_83a96396', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(14.734155722244667), 'volume': 36, 'transaction_cost': np.float64(0.47738664540072717), 'slippage': np.float64(0.0014732682453999267), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 285331), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.285331', 'order_id': 'order_7_83a96396', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(14.734155722244667), 'volume': 36, 'transaction_cost': np.float64(0.47738664540072717), 'slippage': np.float64(0.0014732682453999267), 'timestamp': Timestamp('2024-05-29 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_8_e525e72f, sz.002340, buy, 16.758631971990148, 28, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_8_e525e72f, sz.002340, buy, 16.758631971990148, 28, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_8_e525e72f, sz.002340, buy, 16.758631971990148, 28, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.290331', 'order_id': 'order_8_e525e72f', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.760307835187348), 'volume': 28, 'transaction_cost': np.float64(0.42235975744672116), 'slippage': np.float64(0.0016758631971990148), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 290331), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.290331', 'order_id': 'order_8_e525e72f', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.760307835187348), 'volume': 28, 'transaction_cost': np.float64(0.42235975744672116), 'slippage': np.float64(0.0016758631971990148), 'timestamp': Timestamp('2024-08-12 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_9_70352d96, sz.002340, buy, 16.621330580462413, 26, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_9_70352d96, sz.002340, buy, 16.621330580462413, 26, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_9_70352d96, sz.002340, buy, 16.621330580462413, 26, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.297333', 'order_id': 'order_9_70352d96', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.62299271352046), 'volume': 26, 'transaction_cost': np.float64(0.3889780294963788), 'slippage': np.float64(0.0016621330580462413), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 297333), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.297333', 'order_id': 'order_9_70352d96', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.62299271352046), 'volume': 26, 'transaction_cost': np.float64(0.3889780294963788), 'slippage': np.float64(0.0016621330580462413), 'timestamp': Timestamp('2024-11-05 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_10_2530a6ff, sz.002340, buy, 15.17162787525545, 25, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_10_2530a6ff, sz.002340, buy, 15.17162787525545, 25, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_10_2530a6ff, sz.002340, buy, 15.17162787525545, 25, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.306334', 'order_id': 'order_10_2530a6ff', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(15.173145038042975), 'volume': 25, 'transaction_cost': np.float64(0.34139576335596694), 'slippage': np.float64(0.001517162787525545), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 306334), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.306334', 'order_id': 'order_10_2530a6ff', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(15.173145038042975), 'volume': 25, 'transaction_cost': np.float64(0.34139576335596694), 'slippage': np.float64(0.001517162787525545), 'timestamp': Timestamp('2025-02-26 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_11_3f051dc8, sz.002340, buy, 15.288195217128814, 23, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_11_3f051dc8, sz.002340, buy, 15.288195217128814, 23, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_11_3f051dc8, sz.002340, buy, 15.288195217128814, 23, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.308331', 'order_id': 'order_11_3f051dc8', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(15.289724036650528), 'volume': 23, 'transaction_cost': np.float64(0.3164972875586659), 'slippage': np.float64(0.0015288195217128815), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 308331), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.308331', 'order_id': 'order_11_3f051dc8', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(15.289724036650528), 'volume': 23, 'transaction_cost': np.float64(0.3164972875586659), 'slippage': np.float64(0.0015288195217128815), 'timestamp': Timestamp('2025-04-01 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_12_c33bf6a1, sz.002340, buy, 16.508256431561854, 19, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_12_c33bf6a1, sz.002340, buy, 16.508256431561854, 19, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_12_c33bf6a1, sz.002340, buy, 16.508256431561854, 19, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.315333', 'order_id': 'order_12_c33bf6a1', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.50990725720501), 'volume': 19, 'transaction_cost': np.float64(0.28231941409820566), 'slippage': np.float64(0.0016508256431561855), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 315333), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.315333', 'order_id': 'order_12_c33bf6a1', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.50990725720501), 'volume': 19, 'transaction_cost': np.float64(0.28231941409820566), 'slippage': np.float64(0.0016508256431561855), 'timestamp': Timestamp('2025-07-18 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_13_b24c990e, sz.002340, buy, 16.641258018365647, 17, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_13_b24c990e, sz.002340, buy, 16.641258018365647, 17, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_13_b24c990e, sz.002340, buy, 16.641258018365647, 17, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.318337', 'order_id': 'order_13_b24c990e', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.642922144167485), 'volume': 17, 'transaction_cost': np.float64(0.2546367088057625), 'slippage': np.float64(0.0016641258018365648), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 318337), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.318337', 'order_id': 'order_13_b24c990e', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.642922144167485), 'volume': 17, 'transaction_cost': np.float64(0.2546367088057625), 'slippage': np.float64(0.0016641258018365648), 'timestamp': Timestamp('2025-08-28 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_14_c253aab0, sz.002340, buy, 16.4988890402133, 15, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_14_c253aab0, sz.002340, buy, 16.4988890402133, 15, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_14_c253aab0, sz.002340, buy, 16.4988890402133, 15, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.322335', 'order_id': 'order_14_c253aab0', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.500538929117322), 'volume': 15, 'transaction_cost': np.float64(0.22275727554308386), 'slippage': np.float64(0.00164988890402133), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 322335), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.322335', 'order_id': 'order_14_c253aab0', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.500538929117322), 'volume': 15, 'transaction_cost': np.float64(0.22275727554308386), 'slippage': np.float64(0.00164988890402133), 'timestamp': Timestamp('2025-10-14 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_15_f508d40e, sz.002340, buy, 16.3710078236718, 14, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_15_f508d40e, sz.002340, buy, 16.3710078236718, 14, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_15_f508d40e, sz.002340, buy, 16.3710078236718, 14, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.324335', 'order_id': 'order_15_f508d40e', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.372644924454168), 'volume': 14, 'transaction_cost': np.float64(0.2062953260481225), 'slippage': np.float64(0.00163710078236718), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 324335), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.324335', 'order_id': 'order_15_f508d40e', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.372644924454168), 'volume': 14, 'transaction_cost': np.float64(0.2062953260481225), 'slippage': np.float64(0.00163710078236718), 'timestamp': Timestamp('2025-11-13 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_16_fb9f3c52, sz.002340, buy, 17.157336821334837, 12, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_16_fb9f3c52, sz.002340, buy, 17.157336821334837, 12, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_16_fb9f3c52, sz.002340, buy, 17.157336821334837, 12, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.326336', 'order_id': 'order_16_fb9f3c52', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(17.15905255501697), 'volume': 12, 'transaction_cost': np.float64(0.18531776759418328), 'slippage': np.float64(0.001715733682133484), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 326336), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.326336', 'order_id': 'order_16_fb9f3c52', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(17.15905255501697), 'volume': 12, 'transaction_cost': np.float64(0.18531776759418328), 'slippage': np.float64(0.001715733682133484), 'timestamp': Timestamp('2025-12-12 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 计算性能指标
+2025-12-07 21:23:42 - backtest_engine - INFO - 性能指标计算完成: {'total_return': np.float64(32.08), 'annual_return': np.float64(9.73), 'volatility': np.float64(10.45), 'sharpe_ratio': np.float64(0.64), 'max_drawdown': np.float64(-14.33), 'sortino_ratio': np.float64(1.0), 'win_rate': 0.0, 'profit_loss_ratio': 0, 'total_trades': 16, 'avg_trade_return': np.float64(0.0377), 'trading_days': 785}
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测完成
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 参数性能评估完成: {'total_return': np.float64(32.08), 'annual_return': np.float64(9.73), 'volatility': np.float64(10.45), 'sharpe_ratio': np.float64(0.64), 'max_drawdown': np.float64(-14.33), 'sortino_ratio': np.float64(1.0), 'win_rate': 0.0, 'profit_loss_ratio': 0, 'total_trades': 16, 'avg_trade_return': np.float64(0.0377), 'trading_days': 785}
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 评估随机参数组合 3/3: {'ma_short': 20, 'ma_long': 47, 'transaction_cost': 0.0002575665036113328, 'initial_cash': 259388}
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 评估参数性能: {'ma_short': 20, 'ma_long': 47, 'transaction_cost': 0.0002575665036113328, 'initial_cash': 259388}
+2025-12-07 21:23:42 - base_strategy - INFO - 初始化策略基类
+2025-12-07 21:23:42 - technical_indicators - INFO - 初始化技术指标计算模块
+2025-12-07 21:23:42 - technical_indicators - INFO - 技术指标计算模块初始化完成
+2025-12-07 21:23:42 - base_strategy - INFO - 策略基类初始化完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 初始化双均线策略
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 双均线策略初始化完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 设置策略参数: {'ma_short': 20, 'ma_long': 47, 'transaction_cost': 0.0002575665036113328, 'initial_cash': 259388}
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 更新双均线策略参数: {'ma_short': 20, 'ma_long': 47, 'transaction_cost': 0.0002575665036113328, 'initial_cash': 259388}
+2025-12-07 21:23:42 - backtest_engine - INFO - 设置策略: SimpleMAStrategy
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 设置策略参数: {'initial_cash': 10000, 'transaction_cost': 0.0009, 'slippage': 0.0001, 'max_position_percentage': 0.1}
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 更新双均线策略参数: {'initial_cash': 10000, 'transaction_cost': 0.0009, 'slippage': 0.0001, 'max_position_percentage': 0.1}
+2025-12-07 21:23:42 - backtest_engine - INFO - 开始加载回测数据
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据中的股票代码: sz.002340
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据的实际日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎配置的日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - WARNING - 回测开始日期 2023-01-01 早于数据实际开始日期 2023-01-02
+2025-12-07 21:23:42 - backtest_engine - INFO - 过滤后的实际回测日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测数据加载完成，共 783 条记录
+2025-12-07 21:23:42 - backtest_engine - INFO - 初始化回测
+2025-12-07 21:23:42 - backtest_engine - INFO - 重置回测引擎
+2025-12-07 21:23:42 - matching_engine - INFO - 重置撮合引擎
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合引擎重置完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 重置策略状态
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎重置完成
+2025-12-07 21:23:42 - config_manager - INFO - 开始验证参数一致性
+2025-12-07 21:23:42 - config_manager - INFO - 配置参数 - stock_code: sz.002340, start_date: 2023-01-01, end_date: 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - 实际参数 - stock_code: sz.002340, start_date: 2023-01-02, end_date: 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 股票代码一致性验证通过
+2025-12-07 21:23:42 - config_manager - WARNING - ⚠️  开始日期不一致 - 配置: 2023-01-01, 实际: 2023-01-02
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 结束日期一致性验证通过
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 日期范围重叠验证通过
+2025-12-07 21:23:42 - config_manager - WARNING - ⚠️  部分参数一致性验证未通过，请检查配置
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 初始化策略
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算所有技术指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算移动平均线
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 5 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 10 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 20 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 30 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 60 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 120 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 250 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算MACD指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算MACD指标完成，参数: fast=12, slow=26, signal=9
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算RSI指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI6 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI12 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI24 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算KDJ指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算KDJ指标完成，参数: K=9, D=3, J=3
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算布林带指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算布林带指标完成，参数: 周期=20, 标准差倍数=2
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算波动率
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 20 日波动率完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算成交量指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算成交量指标完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 所有技术指标计算完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 计算双均线策略自定义指标
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 双均线策略自定义指标计算完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 策略初始化完成
+2025-12-07 21:23:42 - backtest_engine - INFO - === 回测参数摘要 ===
+2025-12-07 21:23:42 - backtest_engine - INFO - 股票代码: sz.002340
+2025-12-07 21:23:42 - backtest_engine - INFO - 配置回测日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据实际日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 初始资金: 10000
+2025-12-07 21:23:42 - backtest_engine - INFO - 交易成本: 0.0009
+2025-12-07 21:23:42 - backtest_engine - INFO - 滑点: 0.0001
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据条数: 783
+2025-12-07 21:23:42 - backtest_engine - INFO - 策略名称: SimpleMAStrategy
+2025-12-07 21:23:42 - backtest_engine - INFO - === 回测参数摘要结束 ===
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测初始化完成
+2025-12-07 21:23:42 - backtest_engine - INFO - 开始回测
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_1_8812a310, sz.002340, buy, 9.692661076930921, 103, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_1_8812a310, sz.002340, buy, 9.692661076930921, 103, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_1_8812a310, sz.002340, buy, 9.692661076930921, 103, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.35766', 'order_id': 'order_1_8812a310', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.693630343038615), 'volume': 103, 'transaction_cost': np.float64(0.8985995327996795), 'slippage': np.float64(0.0009692661076930922), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 357660), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.35766', 'order_id': 'order_1_8812a310', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.693630343038615), 'volume': 103, 'transaction_cost': np.float64(0.8985995327996795), 'slippage': np.float64(0.0009692661076930922), 'timestamp': Timestamp('2023-04-13 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_2_eb799b58, sz.002340, buy, 9.866113474980772, 91, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_2_eb799b58, sz.002340, buy, 9.866113474980772, 91, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_2_eb799b58, sz.002340, buy, 9.866113474980772, 91, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.361657', 'order_id': 'order_2_eb799b58', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.86710008632827), 'volume': 91, 'transaction_cost': np.float64(0.8081154970702852), 'slippage': np.float64(0.0009866113474980773), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 361657), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.361657', 'order_id': 'order_2_eb799b58', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.86710008632827), 'volume': 91, 'transaction_cost': np.float64(0.8081154970702852), 'slippage': np.float64(0.0009866113474980773), 'timestamp': Timestamp('2023-06-21 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_3_ccc4e25d, sz.002340, buy, 9.839179884580002, 82, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_3_ccc4e25d, sz.002340, buy, 9.839179884580002, 82, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_3_ccc4e25d, sz.002340, buy, 9.839179884580002, 82, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.365663', 'order_id': 'order_3_ccc4e25d', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.84016380256846), 'volume': 82, 'transaction_cost': np.float64(0.7262040886295523), 'slippage': np.float64(0.0009839179884580003), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 365663), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.365663', 'order_id': 'order_3_ccc4e25d', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.84016380256846), 'volume': 82, 'transaction_cost': np.float64(0.7262040886295523), 'slippage': np.float64(0.0009839179884580003), 'timestamp': Timestamp('2023-08-08 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_4_cc001443, sz.002340, buy, 10.052023824578093, 72, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_4_cc001443, sz.002340, buy, 10.052023824578093, 72, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_4_cc001443, sz.002340, buy, 10.052023824578093, 72, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.36666', 'order_id': 'order_4_cc001443', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(10.053029026960552), 'volume': 72, 'transaction_cost': np.float64(0.6514362809470438), 'slippage': np.float64(0.0010052023824578093), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 366660), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.36666', 'order_id': 'order_4_cc001443', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(10.053029026960552), 'volume': 72, 'transaction_cost': np.float64(0.6514362809470438), 'slippage': np.float64(0.0010052023824578093), 'timestamp': Timestamp('2023-08-16 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_5_ae2da32b, sz.002340, buy, 12.95244885962041, 50, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_5_ae2da32b, sz.002340, buy, 12.95244885962041, 50, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_5_ae2da32b, sz.002340, buy, 12.95244885962041, 50, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.377661', 'order_id': 'order_5_ae2da32b', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.953744104506374), 'volume': 50, 'transaction_cost': np.float64(0.5829184847027868), 'slippage': np.float64(0.0012952448859620412), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 377661), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.377661', 'order_id': 'order_5_ae2da32b', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.953744104506374), 'volume': 50, 'transaction_cost': np.float64(0.5829184847027868), 'slippage': np.float64(0.0012952448859620412), 'timestamp': Timestamp('2024-02-23 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_6_3772c070, sz.002340, buy, 15.265051121840045, 38, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_6_3772c070, sz.002340, buy, 15.265051121840045, 38, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_6_3772c070, sz.002340, buy, 15.265051121840045, 38, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.384657', 'order_id': 'order_6_3772c070', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(15.266577626952229), 'volume': 38, 'transaction_cost': np.float64(0.5221169548417662), 'slippage': np.float64(0.0015265051121840045), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 384657), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.384657', 'order_id': 'order_6_3772c070', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(15.266577626952229), 'volume': 38, 'transaction_cost': np.float64(0.5221169548417662), 'slippage': np.float64(0.0015265051121840045), 'timestamp': Timestamp('2024-06-06 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_7_135d6200, sz.002340, buy, 16.489617045399143, 32, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_7_135d6200, sz.002340, buy, 16.489617045399143, 32, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_7_135d6200, sz.002340, buy, 16.489617045399143, 32, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.395657', 'order_id': 'order_7_135d6200', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.491266007103683), 'volume': 32, 'transaction_cost': np.float64(0.47494846100458604), 'slippage': np.float64(0.0016489617045399145), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 395657), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.395657', 'order_id': 'order_7_135d6200', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.491266007103683), 'volume': 32, 'transaction_cost': np.float64(0.47494846100458604), 'slippage': np.float64(0.0016489617045399145), 'timestamp': Timestamp('2024-11-20 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_8_47401b89, sz.002340, buy, 14.529965338784152, 33, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_8_47401b89, sz.002340, buy, 14.529965338784152, 33, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_8_47401b89, sz.002340, buy, 14.529965338784152, 33, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.40266', 'order_id': 'order_8_47401b89', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(14.53141833531803), 'volume': 33, 'transaction_cost': np.float64(0.4315831245589455), 'slippage': np.float64(0.0014529965338784152), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 402660), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.40266', 'order_id': 'order_8_47401b89', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(14.53141833531803), 'volume': 33, 'transaction_cost': np.float64(0.4315831245589455), 'slippage': np.float64(0.0014529965338784152), 'timestamp': Timestamp('2025-03-10 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_9_6e5112ff, sz.002340, buy, 16.32208412960596, 26, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_9_6e5112ff, sz.002340, buy, 16.32208412960596, 26, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_9_6e5112ff, sz.002340, buy, 16.32208412960596, 26, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.41266', 'order_id': 'order_9_6e5112ff', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.32371633801892), 'volume': 26, 'transaction_cost': np.float64(0.3819749623096427), 'slippage': np.float64(0.0016322084129605959), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 412660), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.41266', 'order_id': 'order_9_6e5112ff', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.32371633801892), 'volume': 26, 'transaction_cost': np.float64(0.3819749623096427), 'slippage': np.float64(0.0016322084129605959), 'timestamp': Timestamp('2025-07-31 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_10_8b88919b, sz.002340, buy, 16.744618780948752, 23, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_10_8b88919b, sz.002340, buy, 16.744618780948752, 23, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_10_8b88919b, sz.002340, buy, 16.744618780948752, 23, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.415661', 'order_id': 'order_10_8b88919b', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.746293242826848), 'volume': 23, 'transaction_cost': np.float64(0.3466482701265157), 'slippage': np.float64(0.0016744618780948754), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 415661), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.415661', 'order_id': 'order_10_8b88919b', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.746293242826848), 'volume': 23, 'transaction_cost': np.float64(0.3466482701265157), 'slippage': np.float64(0.0016744618780948754), 'timestamp': Timestamp('2025-09-04 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_11_36ed0c12, sz.002340, buy, 16.496191755674698, 21, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_11_36ed0c12, sz.002340, buy, 16.496191755674698, 21, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_11_36ed0c12, sz.002340, buy, 16.496191755674698, 21, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.418664', 'order_id': 'order_11_36ed0c12', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.497841374850264), 'volume': 21, 'transaction_cost': np.float64(0.31180920198466994), 'slippage': np.float64(0.0016496191755674698), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 418664), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.418664', 'order_id': 'order_11_36ed0c12', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.497841374850264), 'volume': 21, 'transaction_cost': np.float64(0.31180920198466994), 'slippage': np.float64(0.0016496191755674698), 'timestamp': Timestamp('2025-10-16 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_12_791893a3, sz.002340, buy, 17.20302624242816, 18, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_12_791893a3, sz.002340, buy, 17.20302624242816, 18, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_12_791893a3, sz.002340, buy, 17.20302624242816, 18, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.423662', 'order_id': 'order_12_791893a3', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(17.2047465450524), 'volume': 18, 'transaction_cost': np.float64(0.2787168940298489), 'slippage': np.float64(0.001720302624242816), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 423662), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.423662', 'order_id': 'order_12_791893a3', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(17.2047465450524), 'volume': 18, 'transaction_cost': np.float64(0.2787168940298489), 'slippage': np.float64(0.001720302624242816), 'timestamp': Timestamp('2025-12-16 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 计算性能指标
+2025-12-07 21:23:42 - backtest_engine - INFO - 性能指标计算完成: {'total_return': np.float64(30.28), 'annual_return': np.float64(9.23), 'volatility': np.float64(9.47), 'sharpe_ratio': np.float64(0.66), 'max_drawdown': np.float64(-12.73), 'sortino_ratio': np.float64(1.05), 'win_rate': 0.0, 'profit_loss_ratio': 0, 'total_trades': 12, 'avg_trade_return': np.float64(0.0355), 'trading_days': 785}
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测完成
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 参数性能评估完成: {'total_return': np.float64(30.28), 'annual_return': np.float64(9.23), 'volatility': np.float64(9.47), 'sharpe_ratio': np.float64(0.66), 'max_drawdown': np.float64(-12.73), 'sortino_ratio': np.float64(1.05), 'win_rate': 0.0, 'profit_loss_ratio': 0, 'total_trades': 12, 'avg_trade_return': np.float64(0.0355), 'trading_days': 785}
+2025-12-07 21:23:42 - ParameterOptimizer - INFO - 参数优化完成，最优结果: {'params': {'ma_short': 20, 'ma_long': 47, 'transaction_cost': 0.0002575665036113328, 'initial_cash': 259388}, 'performance': {'total_return': np.float64(30.28), 'annual_return': np.float64(9.23), 'volatility': np.float64(9.47), 'sharpe_ratio': np.float64(0.66), 'max_drawdown': np.float64(-12.73), 'sortino_ratio': np.float64(1.05), 'win_rate': 0.0, 'profit_loss_ratio': 0, 'total_trades': 12, 'avg_trade_return': np.float64(0.0355), 'trading_days': 785}}
+2025-12-07 21:23:42 - optimize - INFO - 优化完成，最佳参数: {'ma_short': 20, 'ma_long': 47, 'transaction_cost': 0.0002575665036113328, 'initial_cash': 259388}
+2025-12-07 21:23:42 - optimize - INFO - 最佳性能: {'total_return': np.float64(30.28), 'annual_return': np.float64(9.23), 'volatility': np.float64(9.47), 'sharpe_ratio': np.float64(0.66), 'max_drawdown': np.float64(-12.73), 'sortino_ratio': np.float64(1.05), 'win_rate': 0.0, 'profit_loss_ratio': 0, 'total_trades': 12, 'avg_trade_return': np.float64(0.0355), 'trading_days': 785}
+2025-12-07 21:23:42 - optimize - INFO - 记录优化历史
+2025-12-07 21:23:42 - optimize - INFO - 保存最佳参数版本
+2025-12-07 21:23:42 - run_backtest - INFO - 数据中的实际股票代码: sz.002340
+2025-12-07 21:23:42 - run_backtest - INFO - 数据的实际日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - base_strategy - INFO - 初始化策略基类
+2025-12-07 21:23:42 - technical_indicators - INFO - 初始化技术指标计算模块
+2025-12-07 21:23:42 - technical_indicators - INFO - 技术指标计算模块初始化完成
+2025-12-07 21:23:42 - base_strategy - INFO - 策略基类初始化完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 初始化双均线策略
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 双均线策略初始化完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 设置策略参数: {'ma_short': 20, 'ma_long': 47, 'transaction_cost': 0.0002575665036113328, 'initial_cash': 259388}
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 更新双均线策略参数: {'ma_short': 20, 'ma_long': 47, 'transaction_cost': 0.0002575665036113328, 'initial_cash': 259388}
+2025-12-07 21:23:42 - backtest_engine - INFO - 初始化回测引擎
+2025-12-07 21:23:42 - matching_engine - INFO - 初始化撮合引擎
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合引擎初始化完成
+2025-12-07 21:23:42 - data_source_manager - INFO - 初始化数据源管理器
+2025-12-07 21:23:42 - data_source_manager - INFO - BaoStock登录成功
+2025-12-07 21:23:42 - data_source_manager - INFO - 初始化数据源成功: baostock
+2025-12-07 21:23:42 - data_source_manager - INFO - 设置默认数据源: baostock
+2025-12-07 21:23:42 - data_source_manager - INFO - 初始化数据源成功: csv
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎初始化完成
+2025-12-07 21:23:42 - run_backtest - INFO - 配置中的股票代码: sz.002340
+2025-12-07 21:23:42 - run_backtest - INFO - 配置中的回测日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - 开始验证参数一致性
+2025-12-07 21:23:42 - config_manager - INFO - 配置参数 - stock_code: sz.002340, start_date: 2023-01-01, end_date: 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - 实际参数 - stock_code: sz.002340, start_date: 2023-01-02, end_date: 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 股票代码一致性验证通过
+2025-12-07 21:23:42 - config_manager - WARNING - ⚠️  开始日期不一致 - 配置: 2023-01-01, 实际: 2023-01-02
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 结束日期一致性验证通过
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 日期范围重叠验证通过
+2025-12-07 21:23:42 - config_manager - WARNING - ⚠️  部分参数一致性验证未通过，请检查配置
+2025-12-07 21:23:42 - run_backtest - INFO - 设置回测参数: {'initial_cash': 259388, 'start_date': '2023-01-01', 'end_date': '2025-12-31', 'frequency': 'd', 'transaction_cost': 0.0002575665036113328, 'slippage': 0.0001}
+2025-12-07 21:23:42 - backtest_engine - INFO - 设置回测参数前的当前值: {'initial_cash': 1000000, 'start_date': None, 'end_date': None, 'frequency': 'd', 'transaction_cost': 0.0003, 'slippage': 0.0001, 'max_position_percentage': 0.1, 'commission_rate': 0.0003, 'stamp_tax': 0.001}
+2025-12-07 21:23:42 - backtest_engine - INFO - 设置的新参数: {'initial_cash': 259388, 'start_date': '2023-01-01', 'end_date': '2025-12-31', 'frequency': 'd', 'transaction_cost': 0.0002575665036113328, 'slippage': 0.0001}
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 initial_cash: 原值=1000000, 新值=259388, 来源=传入参数
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 start_date: 原值=None, 新值=2023-01-01, 来源=传入参数
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 end_date: 原值=None, 新值=2025-12-31, 来源=传入参数
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 frequency: 原值=d, 新值=d, 来源=传入参数
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 transaction_cost: 原值=0.0003, 新值=0.0002575665036113328, 来源=传入参数
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数 slippage: 原值=0.0001, 新值=0.0001, 来源=传入参数
+2025-12-07 21:23:42 - matching_engine - INFO - 设置撮合参数: {'transaction_cost': 0.0002575665036113328, 'slippage': 0.0001}
+2025-12-07 21:23:42 - backtest_engine - INFO - 更新撮合引擎参数 - 交易成本: 0.0002575665036113328, 滑点: 0.0001
+2025-12-07 21:23:42 - backtest_engine - INFO - 更新初始资金 - 原值: 1000000, 新值: 259388
+2025-12-07 21:23:42 - backtest_engine - INFO - 参数设置完成，最终回测参数: {'initial_cash': 259388, 'start_date': '2023-01-01', 'end_date': '2025-12-31', 'frequency': 'd', 'transaction_cost': 0.0002575665036113328, 'slippage': 0.0001, 'max_position_percentage': 0.1, 'commission_rate': 0.0003, 'stamp_tax': 0.001}
+2025-12-07 21:23:42 - run_backtest - INFO - 开始加载回测数据
+2025-12-07 21:23:42 - backtest_engine - INFO - 开始加载回测数据
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据中的股票代码: sz.002340
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据的实际日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎配置的日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - WARNING - 回测开始日期 2023-01-01 早于数据实际开始日期 2023-01-02
+2025-12-07 21:23:42 - backtest_engine - INFO - 过滤后的实际回测日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测数据加载完成，共 783 条记录
+2025-12-07 21:23:42 - backtest_engine - INFO - 设置策略: SimpleMAStrategy
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 设置策略参数: {'initial_cash': 259388, 'transaction_cost': 0.0002575665036113328, 'slippage': 0.0001, 'max_position_percentage': 0.1}
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 更新双均线策略参数: {'initial_cash': 259388, 'transaction_cost': 0.0002575665036113328, 'slippage': 0.0001, 'max_position_percentage': 0.1}
+2025-12-07 21:23:42 - backtest_engine - INFO - 初始化回测
+2025-12-07 21:23:42 - backtest_engine - INFO - 重置回测引擎
+2025-12-07 21:23:42 - matching_engine - INFO - 重置撮合引擎
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合引擎重置完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 重置策略状态
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎重置完成
+2025-12-07 21:23:42 - config_manager - INFO - 开始验证参数一致性
+2025-12-07 21:23:42 - config_manager - INFO - 配置参数 - stock_code: sz.002340, start_date: 2023-01-01, end_date: 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - 实际参数 - stock_code: sz.002340, start_date: 2023-01-02, end_date: 2025-12-31
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 股票代码一致性验证通过
+2025-12-07 21:23:42 - config_manager - WARNING - ⚠️  开始日期不一致 - 配置: 2023-01-01, 实际: 2023-01-02
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 结束日期一致性验证通过
+2025-12-07 21:23:42 - config_manager - INFO - ✅ 日期范围重叠验证通过
+2025-12-07 21:23:42 - config_manager - WARNING - ⚠️  部分参数一致性验证未通过，请检查配置
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 初始化策略
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算所有技术指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算移动平均线
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 5 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 10 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 20 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 30 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 60 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 120 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 250 日均线完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算MACD指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算MACD指标完成，参数: fast=12, slow=26, signal=9
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算RSI指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI6 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI12 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 RSI24 完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算KDJ指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算KDJ指标完成，参数: K=9, D=3, J=3
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算布林带指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算布林带指标完成，参数: 周期=20, 标准差倍数=2
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算波动率
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算 20 日波动率完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 开始计算成交量指标
+2025-12-07 21:23:42 - technical_indicators - INFO - 计算成交量指标完成
+2025-12-07 21:23:42 - technical_indicators - INFO - 所有技术指标计算完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 计算双均线策略自定义指标
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 双均线策略自定义指标计算完成
+2025-12-07 21:23:42 - simple_ma_strategy - INFO - 策略初始化完成
+2025-12-07 21:23:42 - backtest_engine - INFO - === 回测参数摘要 ===
+2025-12-07 21:23:42 - backtest_engine - INFO - 股票代码: sz.002340
+2025-12-07 21:23:42 - backtest_engine - INFO - 配置回测日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测引擎日期范围: 2023-01-01 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据实际日期范围: 2023-01-02 至 2025-12-31
+2025-12-07 21:23:42 - backtest_engine - INFO - 初始资金: 259388
+2025-12-07 21:23:42 - backtest_engine - INFO - 交易成本: 0.0002575665036113328
+2025-12-07 21:23:42 - backtest_engine - INFO - 滑点: 0.0001
+2025-12-07 21:23:42 - backtest_engine - INFO - 数据条数: 783
+2025-12-07 21:23:42 - backtest_engine - INFO - 策略名称: SimpleMAStrategy
+2025-12-07 21:23:42 - backtest_engine - INFO - === 回测参数摘要结束 ===
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测初始化完成
+2025-12-07 21:23:42 - run_backtest - INFO - 开始运行回测
+2025-12-07 21:23:42 - backtest_engine - INFO - 开始回测
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_1_5cf78425, sz.002340, buy, 9.692661076930921, 2675, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_1_5cf78425, sz.002340, buy, 9.692661076930921, 2675, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_1_5cf78425, sz.002340, buy, 9.692661076930921, 2675, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.5489', 'order_id': 'order_1_5cf78425', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.693630343038615), 'volume': 2675, 'transaction_cost': np.float64(6.678818219975458), 'slippage': np.float64(0.0009692661076930922), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 548900), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.5489', 'order_id': 'order_1_5cf78425', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.693630343038615), 'volume': 2675, 'transaction_cost': np.float64(6.678818219975458), 'slippage': np.float64(0.0009692661076930922), 'timestamp': Timestamp('2023-04-13 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_2_69053891, sz.002340, buy, 9.866113474980772, 2365, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_2_69053891, sz.002340, buy, 9.866113474980772, 2365, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_2_69053891, sz.002340, buy, 9.866113474980772, 2365, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.553901', 'order_id': 'order_2_69053891', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.86710008632827), 'volume': 2365, 'transaction_cost': np.float64(6.010492521594113), 'slippage': np.float64(0.0009866113474980773), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 553901), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.553901', 'order_id': 'order_2_69053891', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.86710008632827), 'volume': 2365, 'transaction_cost': np.float64(6.010492521594113), 'slippage': np.float64(0.0009866113474980773), 'timestamp': Timestamp('2023-06-21 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_3_d745b017, sz.002340, buy, 9.839179884580002, 2134, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_3_d745b017, sz.002340, buy, 9.839179884580002, 2134, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_3_d745b017, sz.002340, buy, 9.839179884580002, 2134, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.557406', 'order_id': 'order_3_d745b017', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.84016380256846), 'volume': 2134, 'transaction_cost': np.float64(5.4086157136498185), 'slippage': np.float64(0.0009839179884580003), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 557406), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.557406', 'order_id': 'order_3_d745b017', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(9.84016380256846), 'volume': 2134, 'transaction_cost': np.float64(5.4086157136498185), 'slippage': np.float64(0.0009839179884580003), 'timestamp': Timestamp('2023-08-08 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_4_e3b7d2a1, sz.002340, buy, 10.052023824578093, 1880, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_4_e3b7d2a1, sz.002340, buy, 10.052023824578093, 1880, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_4_e3b7d2a1, sz.002340, buy, 10.052023824578093, 1880, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.55791', 'order_id': 'order_4_e3b7d2a1', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(10.053029026960552), 'volume': 1880, 'transaction_cost': np.float64(4.867928249893641), 'slippage': np.float64(0.0010052023824578093), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 557910), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.55791', 'order_id': 'order_4_e3b7d2a1', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(10.053029026960552), 'volume': 1880, 'transaction_cost': np.float64(4.867928249893641), 'slippage': np.float64(0.0010052023824578093), 'timestamp': Timestamp('2023-08-16 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_5_2d3c9857, sz.002340, buy, 12.95244885962041, 1313, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_5_2d3c9857, sz.002340, buy, 12.95244885962041, 1313, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_5_2d3c9857, sz.002340, buy, 12.95244885962041, 1313, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.570058', 'order_id': 'order_5_2d3c9857', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.953744104506374), 'volume': 1313, 'transaction_cost': np.float64(4.380759608485466), 'slippage': np.float64(0.0012952448859620412), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 570058), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.570058', 'order_id': 'order_5_2d3c9857', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(12.953744104506374), 'volume': 1313, 'transaction_cost': np.float64(4.380759608485466), 'slippage': np.float64(0.0012952448859620412), 'timestamp': Timestamp('2024-02-23 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_6_c10951e3, sz.002340, buy, 15.265051121840045, 1003, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_6_c10951e3, sz.002340, buy, 15.265051121840045, 1003, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_6_c10951e3, sz.002340, buy, 15.265051121840045, 1003, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.578058', 'order_id': 'order_6_c10951e3', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(15.266577626952229), 'volume': 1003, 'transaction_cost': np.float64(3.9439554985495384), 'slippage': np.float64(0.0015265051121840045), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 578058), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.578058', 'order_id': 'order_6_c10951e3', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(15.266577626952229), 'volume': 1003, 'transaction_cost': np.float64(3.9439554985495384), 'slippage': np.float64(0.0015265051121840045), 'timestamp': Timestamp('2024-06-06 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_7_9c8a0b16, sz.002340, buy, 16.489617045399143, 835, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_7_9c8a0b16, sz.002340, buy, 16.489617045399143, 835, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_7_9c8a0b16, sz.002340, buy, 16.489617045399143, 835, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.592058', 'order_id': 'order_7_9c8a0b16', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.491266007103683), 'volume': 835, 'transaction_cost': np.float64(3.5467441008543905), 'slippage': np.float64(0.0016489617045399145), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 592058), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.592058', 'order_id': 'order_7_9c8a0b16', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.491266007103683), 'volume': 835, 'transaction_cost': np.float64(3.5467441008543905), 'slippage': np.float64(0.0016489617045399145), 'timestamp': Timestamp('2024-11-20 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_8_f5b9492f, sz.002340, buy, 14.529965338784152, 853, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_8_f5b9492f, sz.002340, buy, 14.529965338784152, 853, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_8_f5b9492f, sz.002340, buy, 14.529965338784152, 853, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.600059', 'order_id': 'order_8_f5b9492f', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(14.53141833531803), 'volume': 853, 'transaction_cost': np.float64(3.1926140410096813), 'slippage': np.float64(0.0014529965338784152), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 600059), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.600059', 'order_id': 'order_8_f5b9492f', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(14.53141833531803), 'volume': 853, 'transaction_cost': np.float64(3.1926140410096813), 'slippage': np.float64(0.0014529965338784152), 'timestamp': Timestamp('2025-03-10 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_9_ce7d4953, sz.002340, buy, 16.32208412960596, 684, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_9_ce7d4953, sz.002340, buy, 16.32208412960596, 684, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_9_ce7d4953, sz.002340, buy, 16.32208412960596, 684, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.609058', 'order_id': 'order_9_ce7d4953', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.32371633801892), 'volume': 684, 'transaction_cost': np.float64(2.875838699498678), 'slippage': np.float64(0.0016322084129605959), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 609058), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.609058', 'order_id': 'order_9_ce7d4953', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.32371633801892), 'volume': 684, 'transaction_cost': np.float64(2.875838699498678), 'slippage': np.float64(0.0016322084129605959), 'timestamp': Timestamp('2025-07-31 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_10_025fc0ba, sz.002340, buy, 16.744618780948752, 600, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_10_025fc0ba, sz.002340, buy, 16.744618780948752, 600, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_10_025fc0ba, sz.002340, buy, 16.744618780948752, 600, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.612058', 'order_id': 'order_10_025fc0ba', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.746293242826848), 'volume': 600, 'transaction_cost': np.float64(2.5879705194029996), 'slippage': np.float64(0.0016744618780948754), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 612058), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.612058', 'order_id': 'order_10_025fc0ba', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.746293242826848), 'volume': 600, 'transaction_cost': np.float64(2.5879705194029996), 'slippage': np.float64(0.0016744618780948754), 'timestamp': Timestamp('2025-09-04 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_11_22aaae79, sz.002340, buy, 16.496191755674698, 548, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_11_22aaae79, sz.002340, buy, 16.496191755674698, 548, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_11_22aaae79, sz.002340, buy, 16.496191755674698, 548, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.614056', 'order_id': 'order_11_22aaae79', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.497841374850264), 'volume': 548, 'transaction_cost': np.float64(2.3286116433899022), 'slippage': np.float64(0.0016496191755674698), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 614056), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.614056', 'order_id': 'order_11_22aaae79', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(16.497841374850264), 'volume': 548, 'transaction_cost': np.float64(2.3286116433899022), 'slippage': np.float64(0.0016496191755674698), 'timestamp': Timestamp('2025-10-16 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 创建订单: Order(order_12_a1257631, sz.002340, buy, 17.20302624242816, 473, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 添加订单: Order(order_12_a1257631, sz.002340, buy, 17.20302624242816, 473, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 撮合市价单: Order(order_12_a1257631, sz.002340, buy, 17.20302624242816, 473, pending)
+2025-12-07 21:23:42 - matching_engine - INFO - 市价单撮合完成: {'trade_id': 'trade_1765113822.619057', 'order_id': 'order_12_a1257631', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(17.2047465450524), 'volume': 473, 'transaction_cost': np.float64(2.096036313409688), 'slippage': np.float64(0.001720302624242816), 'timestamp': datetime.datetime(2025, 12, 7, 21, 23, 42, 619057), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 成交记录: {'trade_id': 'trade_1765113822.619057', 'order_id': 'order_12_a1257631', 'symbol': 'sz.002340', 'action': 'buy', 'price': np.float64(17.2047465450524), 'volume': 473, 'transaction_cost': np.float64(2.096036313409688), 'slippage': np.float64(0.001720302624242816), 'timestamp': Timestamp('2025-12-16 00:00:00'), 'order_type': 'market'}
+2025-12-07 21:23:42 - backtest_engine - INFO - 计算性能指标
+2025-12-07 21:23:42 - backtest_engine - INFO - 性能指标计算完成: {'total_return': np.float64(30.44), 'annual_return': np.float64(9.27), 'volatility': np.float64(9.51), 'sharpe_ratio': np.float64(0.66), 'max_drawdown': np.float64(-12.78), 'sortino_ratio': np.float64(1.05), 'win_rate': 0.0, 'profit_loss_ratio': 0, 'total_trades': 12, 'avg_trade_return': np.float64(0.0357), 'trading_days': 785}
+2025-12-07 21:23:42 - backtest_engine - INFO - 回测完成
+2025-12-07 21:23:42 - data_source_manager - INFO - 已登出BaoStock API
+2025-12-07 21:23:42 - ParamVersionManager - INFO - 保存参数版本，策略: simple_ma
+2025-12-07 21:23:42 - ParamVersionManager - INFO - 参数版本保存成功，版本ID: simple_ma_best_sharpe_20251207_212342
+2025-12-07 21:23:42 - optimize - INFO - 最佳参数已保存，版本ID: simple_ma_best_sharpe_20251207_212342
+2025-12-07 21:23:42 - optimize - INFO - 记录操作日志
+2025-12-07 21:23:42 - ParamPermissionManager - INFO - 记录参数操作日志: admin, 操作: optimize, 策略: simple_ma
+2025-12-07 21:23:42 - ParamPermissionManager - INFO - 保存了 15 条操作日志
+2025-12-07 21:23:42 - optimize - INFO - 展示优化结果
+2025-12-07 21:23:42 - main - ERROR - 程序执行失败: name 'datetime' is not defined
+2025-12-07 21:23:42 - main - ERROR - Traceback (most recent call last):
+  File "d:\Users\yangfeng\Documents\Python\股票分析\main.py", line 86, in main
+    optimize_main()
+  File "d:\Users\yangfeng\Documents\Python\股票分析\optimize.py", line 437, in main
+    print(f"保存时间: {datetime.now().isoformat()}")
+                       ^^^^^^^^
+NameError: name 'datetime' is not defined. Did you forget to import 'datetime'
+
+2025-12-07 21:23:42 - data_source_manager - INFO - 已登出BaoStock API
