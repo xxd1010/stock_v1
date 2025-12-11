@@ -1,0 +1,27 @@
+{
+  "version_id": "simple_ma_best_sharpe_20251211_140403",
+  "name": "best_sharpe",
+  "description": "基于夏普比率优化的最佳参数",
+  "strategy_name": "simple_ma",
+  "params": {
+    "ma_short": 8,
+    "ma_long": 19,
+    "transaction_cost": 0.0004418483898816169,
+    "initial_cash": 662451
+  },
+  "performance": {
+    "total_return": 46.82,
+    "annual_return": 13.67,
+    "volatility": 13.24,
+    "sharpe_ratio": 0.81,
+    "max_drawdown": -17.51,
+    "sortino_ratio": 1.28,
+    "win_rate": 0.0,
+    "profit_loss_ratio": 0,
+    "total_trades": 22,
+    "avg_trade_return": 0.0525,
+    "trading_days": 785
+  },
+  "created_time": "2025-12-11T14:04:03.726326",
+  "created_by": "system"
+}

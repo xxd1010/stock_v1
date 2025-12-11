@@ -230,10 +230,15 @@ def parse_arguments():
     # 操作类型
     args.operation = config.get("operation", "analyze")
     
-    # 股票相关参数
-    args.stock_code = config.get("stock_code")
-    args.start_date = config.get("start_date")
-    args.end_date = config.get("end_date")
+    # 股票相关参数（从sample_data节点读取）
+    sample_data = config.get("sample_data", {})
+    
+    # 股票代码（优先从sample_data.symbol或sample_data.stock_code读取）
+    args.stock_code = sample_data.get("symbol") or sample_data.get("stock_code")
+    
+    # 日期范围（优先从sample_data读取）
+    args.start_date = sample_data.get("start_date")
+    args.end_date = sample_data.get("end_date")
     args.list = config.get("stock_list_path")
     
     logger.info(f"从配置文件读取参数: 操作={args.operation}, 股票代码={args.stock_code}, 日期范围={args.start_date} 至 {args.end_date}")

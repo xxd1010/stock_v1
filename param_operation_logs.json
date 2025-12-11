@@ -288,6 +288,106 @@
         }
       },
       "timestamp": "2025-12-07T21:23:42.671922"
+    },
+    {
+      "username": "admin",
+      "operation": "optimize",
+      "details": {
+        "strategy_name": "simple_ma",
+        "params_before": {
+          "ma_short": 10,
+          "ma_long": 20,
+          "transaction_cost": 0.0003,
+          "initial_cash": 1000000
+        },
+        "params_after": {
+          "ma_short": 15,
+          "ma_long": 13,
+          "transaction_cost": 0.0009892724969874525,
+          "initial_cash": 578958
+        }
+      },
+      "timestamp": "2025-12-11T13:46:44.754296"
+    },
+    {
+      "username": "admin",
+      "operation": "optimize",
+      "details": {
+        "strategy_name": "simple_ma",
+        "params_before": {
+          "ma_short": 10,
+          "ma_long": 20,
+          "transaction_cost": 0.0003,
+          "initial_cash": 1000000
+        },
+        "params_after": {
+          "ma_short": 8,
+          "ma_long": 19,
+          "transaction_cost": 0.0004418483898816169,
+          "initial_cash": 662451
+        }
+      },
+      "timestamp": "2025-12-11T14:04:03.727328"
+    },
+    {
+      "username": "admin",
+      "operation": "optimize",
+      "details": {
+        "strategy_name": "simple_ma",
+        "params_before": {
+          "ma_short": 10,
+          "ma_long": 20,
+          "transaction_cost": 0.0003,
+          "initial_cash": 1000000
+        },
+        "params_after": {
+          "ma_short": 15,
+          "ma_long": 21,
+          "transaction_cost": 0.0005351496529307675,
+          "initial_cash": 1772689
+        }
+      },
+      "timestamp": "2025-12-11T14:04:43.918846"
+    },
+    {
+      "username": "admin",
+      "operation": "optimize",
+      "details": {
+        "strategy_name": "simple_ma",
+        "params_before": {
+          "ma_short": 10,
+          "ma_long": 20,
+          "transaction_cost": 0.0003,
+          "initial_cash": 1000000
+        },
+        "params_after": {
+          "ma_short": 8,
+          "ma_long": 15,
+          "transaction_cost": 0.0009400496946451554,
+          "initial_cash": 1137040
+        }
+      },
+      "timestamp": "2025-12-11T14:06:49.645227"
+    },
+    {
+      "username": "admin",
+      "operation": "optimize",
+      "details": {
+        "strategy_name": "simple_ma",
+        "params_before": {
+          "ma_short": 10,
+          "ma_long": 20,
+          "transaction_cost": 0.0003,
+          "initial_cash": 1000000
+        },
+        "params_after": {
+          "ma_short": 20,
+          "ma_long": 18,
+          "transaction_cost": 0.0006885520343328666,
+          "initial_cash": 1649242
+        }
+      },
+      "timestamp": "2025-12-11T14:07:09.570838"
     }
   ]
 }
